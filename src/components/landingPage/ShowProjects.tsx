@@ -35,8 +35,8 @@ const RotatingCylinder = () => {
           side={THREE.DoubleSide}
           map={texture}
           transparent
-          roughness={0.5} // Increased roughness for less shine
-          metalness={0.05} // Reduced metalness
+          roughness={0.5} 
+          metalness={0.05} 
         />
       </mesh>
     </group>
@@ -149,7 +149,7 @@ const ShowProjects = () => {
             
             <EffectComposer multisampling={8}>
               <Bloom
-                intensity={2} // Reduced bloom intensity
+                intensity={2}
                 kernelSize={1}
                 luminanceThreshold={0}
                 luminanceSmoothing={0}

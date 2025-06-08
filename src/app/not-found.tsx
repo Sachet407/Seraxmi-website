@@ -13,11 +13,11 @@ export default function NotFoundPage() {
         </div>
 
         <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          You've Discovered New Territory
+          You&apos;ve Discovered New Territory
         </h1>
 
         <p className="text-xl sm:text-2xl text-slate-600 dark:text-slate-400">
-          This page isn't on our map yet, but there's plenty to explore back home.
+          This page isn&apos;t on our map yet, but there&apos;s plenty to explore back home.
         </p>
 
         <div className="relative group">
