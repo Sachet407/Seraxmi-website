@@ -139,7 +139,7 @@ const [isTyping] = useState(true);
         }
       }, 300);
     }
-  }, [typedCode, currentLine, isTyping]);
+  }, [typedCode, currentLine, isTyping,codeLines]);
 
   interface CodeLinePart {
     text: string;
