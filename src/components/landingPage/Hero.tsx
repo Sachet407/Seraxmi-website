@@ -180,13 +180,13 @@ const [isTyping] = useState(true);
 
   return (
     <section className="relative min-h-screen flex items-center py-12 md:py-20 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-slate-900 dark:via-blue-950/30 dark:to-purple-950/30">
-      {/* Animated background elements */}
+     
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         <div className="absolute top-1/2 left-1/2 w-32 h-32 bg-orange-400/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
 
-        {/* Grid background */}
+   
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute inset-0 bg-[length:100px_100px] opacity-60 dark:opacity-20"
             style={{
@@ -202,7 +202,7 @@ const [isTyping] = useState(true);
       </div>
 
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 items-center gap-8 md:gap-16 relative z-10">
-        {/* Left Section */}
+  
         <div className="text-center lg:text-left space-y-6 md:space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-3 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 border border-blue-200 dark:border-blue-800 rounded-full text-xs md:text-sm font-medium shadow-lg backdrop-blur-sm mt-6 md:mt-0">
             <Zap className="w-3 h-3 md:w-4 md:h-4 animate-pulse text-blue-600 dark:text-blue-400" />
@@ -249,16 +249,16 @@ const [isTyping] = useState(true);
           </div>
         </div>
 
-        {/* Right Section - Code Editor */}
+      
         <div className="relative flex justify-center lg:justify-end mt-8 md:mt-0">
           <div className="relative w-full max-w-4xl">
-            {/* Floating decorative elements */}
+         
             <div className="absolute -top-4 -left-4 w-16 h-16 md:w-24 md:h-24 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-2xl rotate-12 animate-bounce" style={{ animationDuration: '3s' }}></div>
             <div className="absolute -bottom-4 -right-4 w-20 h-20 md:w-32 md:h-32 bg-gradient-to-br from-orange-400/20 to-pink-400/20 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
 
-            {/* Main Code Editor */}
+  
             <div className="relative w-full h-[350px] md:h-[400px] lg:h-[500px] bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl shadow-2xl overflow-hidden border border-slate-700 backdrop-blur-sm">
-              {/* Editor Header */}
+     
               <div className="flex items-center justify-between px-4 md:px-6 py-3 md:py-4 bg-slate-800/80 border-b border-slate-700">
                 <div className="flex items-center space-x-2 md:space-x-3">
                   <div className="w-2 h-2 md:w-3 md:h-3 bg-red-500 rounded-full animate-pulse"></div>
@@ -272,20 +272,17 @@ const [isTyping] = useState(true);
                 </div>
               </div>
 
-              {/* Code Content */}
               <div className="p-4 md:p-6 font-mono text-sm md:text-lg leading-relaxed">
                 <div className="space-y-1">
                   {coloredCodeLines.map((_, index) => renderColoredLine(index))}
                 </div>
 
-                {/* Cursor blink effect */}
                 <div className="mt-3 md:mt-4 flex items-center space-x-2 text-green-400">
                   <span>//</span>
                   <span className="animate-pulse">Building the future...</span>
                 </div>
               </div>
 
-              {/* Subtle glow effect */}
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/5 via-transparent to-purple-500/5 pointer-events-none"></div>
             </div>
           </div>
