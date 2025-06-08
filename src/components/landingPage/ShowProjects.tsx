@@ -45,7 +45,7 @@ const RotatingCylinder = () => {
 
 const ShowProjects = () => {
   const [isLoaded, setIsLoaded] = useState(false)
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
