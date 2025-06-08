@@ -103,7 +103,7 @@ const [isTyping] = useState(true);
       setCurrentService((prev) => (prev + 1) % services.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [services.length]);
 
   // Typing effect
   useEffect(() => {
