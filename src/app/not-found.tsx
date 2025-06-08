@@ -1,192 +1,45 @@
-'use client'
-import React, { useState, useEffect } from 'react'
-import Link from 'next/link'
+"use client";
+import Link from "next/link";
+import { Compass, Home, Sparkles } from "lucide-react";
 
-export default function Custom404() {
-  const [glitchText, setGlitchText] = useState('SERAXMI')
-  type Particle = {
-    id: number
-    x: number
-    y: number
-    size: number
-    speed: number
-    delay: number
-  }
-  const [particles, setParticles] = useState<Particle[]>([])
-
-  // Glitch effect for text
-  useEffect(() => {
-    const glitchChars = ['S', 'E', 'R', 'A', 'X', 'M', 'I', '█', '▓', '▒', '░']
-    const interval = setInterval(() => {
-      const randomText = Array.from({length: 7}, () => 
-        glitchChars[Math.floor(Math.random() * glitchChars.length)]
-      ).join('')
-      setGlitchText(randomText)
-      
-      setTimeout(() => setGlitchText('SERAXMI'), 100)
-    }, 3000)
-
-    return () => clearInterval(interval)
-  }, [])
-
-  // Floating particles
-  useEffect(() => {
-    const newParticles = Array.from({length: 20}, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 4 + 2,
-      speed: Math.random() * 2 + 1,
-      delay: Math.random() * 5
-    }))
-    setParticles(newParticles)
-  }, [])
-
+export default function NotFoundPage() {
   return (
-    <div className="min-h-screen relative overflow-hidden flex items-center justify-center">
-      {/* Animated background */}
-      <div className="absolute inset-0">
-        {/* Circuit pattern overlay */}
-        <div className="absolute inset-0 opacity-10">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>
-              <pattern id="circuit" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                <circle cx="2" cy="2" r="1" fill="#14b8a6" opacity="0.3"/>
-                <line x1="3" y1="2" x2="17" y2="2" stroke="#14b8a6" strokeWidth="0.5" opacity="0.3"/>
-                <circle cx="18" cy="2" r="1" fill="#14b8a6" opacity="0.3"/>
-                <line x1="2" y1="3" x2="2" y2="17" stroke="#14b8a6" strokeWidth="0.5" opacity="0.3"/>
-                <circle cx="2" cy="18" r="1" fill="#14b8a6" opacity="0.3"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#circuit)"/>
-          </svg>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-950 p-6">
+      <div className="max-w-2xl mx-auto text-center space-y-8">
+        {/* Animated compass icon */}
+        <div className="relative inline-block">
+          <Compass className="w-24 h-24 text-blue-600 dark:text-blue-400 animate-spin-slow" />
+          <Sparkles className="absolute -top-2 -right-2 w-6 h-6 text-yellow-500 animate-pulse" />
         </div>
 
-        {/* Floating particles */}
-        {particles.map(particle => (
-          <div
-            key={particle.id}
-            className="absolute w-1 h-1 bg-teal-400 rounded-full animate-pulse"
-            style={{
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
-              animationDelay: `${particle.delay}s`,
-              animationDuration: `${particle.speed}s`
-            }}
-          />
-        ))}
+        <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          You've Discovered New Territory
+        </h1>
 
-        {/* Gradient orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-yellow-500/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-      </div>
+        <p className="text-xl sm:text-2xl text-slate-600 dark:text-slate-400">
+          This page isn't on our map yet, but there's plenty to explore back home.
+        </p>
 
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        
-
-
-        {/* Glitch Text */}
-        <div className="mb-8">
-          <h1 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-teal-400 via-teal-300 to-yellow-400 bg-clip-text text-transparent tracking-wider mb-4">
-            {glitchText}
-          </h1>
-          <div className="text-lg text-teal-400/70 tracking-widest font-light">
-            TECHNOLOGY SOLUTIONS
-          </div>
-        </div>
-
-        {/* Mysterious Message */}
-        <div className="mb-12 space-y-6">
-          <div className="text-4xl md:text-6xl font-bold text-white mb-4">
-            <span className="bg-gradient-to-r from-teal-400 to-yellow-400 bg-clip-text text-transparent">
-              Portal Offline
-            </span>
-          </div>
-          
-          <div className="text-gray-300 text-lg max-w-2xl mx-auto leading-relaxed">
-            The digital pathway you seek has been temporarily dissolved. 
-            Our quantum systems are recalibrating to serve you better.
-          </div>
-          
-          <div className="flex justify-center items-center space-x-4 text-teal-400">
-            <div className="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></div>
-            <span className="text-sm tracking-wider">SYSTEM RESTORATION IN PROGRESS</span>
-            <div className="w-2 h-2 bg-teal-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-          </div>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+        <div className="relative group">
+          <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg blur opacity-75 group-hover:opacity-100 transition-all duration-300"></div>
           <Link
             href="/"
-            className="group relative px-8 py-4 bg-gradient-to-r from-teal-600 to-teal-700 text-white rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/25 hover:scale-105"
+            className="relative px-8 py-4 bg-white dark:bg-slate-800 rounded-lg flex items-center justify-center gap-3 text-lg font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300"
           >
-            {/* Animated background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-teal-500 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            
-            <span className="relative z-10 flex items-center text-lg font-medium">
-              <svg className="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
-              </svg>
-              Return Home
-            </span>
-          </Link>
-
-          <Link
-            href="/services"
-            className="group relative px-8 py-4 border-2 border-teal-500/50 text-teal-400 rounded-xl overflow-hidden transition-all duration-300 hover:border-teal-400 hover:bg-teal-500/10 hover:scale-105"
-          >
-            <span className="relative z-10 flex items-center text-lg font-medium">
-              <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-              </svg>
-              Explore Services
-            </span>
+            <Home className="w-5 h-5" />
+            <span>Return to Home</span>
           </Link>
         </div>
 
-        {/* Tech Stats */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-          {[
-            { label: 'Quantum Channels', value: '∞', icon: '⚡' },
-            { label: 'Neural Networks', value: '247', icon: '🧠' },
-            { label: 'Data Streams', value: '∆', icon: '📡' }
-          ].map((stat, index) => (
-            <div key={index} className="relative p-6 rounded-xl bg-gradient-to-br from-teal-500/10 to-transparent border border-teal-500/20 backdrop-blur-sm">
-              <div className="text-3xl mb-2">{stat.icon}</div>
-              <div className="text-2xl font-bold text-teal-400 mb-1">{stat.value}</div>
-              <div className="text-sm text-gray-400">{stat.label}</div>
-              
-              {/* Pulse effect */}
-              <div className="absolute inset-0 rounded-xl bg-teal-500/5 animate-pulse"></div>
-            </div>
-          ))}
-        </div>
+        <p className="text-sm text-slate-500 dark:text-slate-500 mt-8">
+          Or use the compass of your browser to navigate elsewhere
+        </p>
       </div>
 
-      {/* Bottom gradient line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-teal-500/50 to-transparent"></div>
+      {/* Decorative elements */}
+      <div className="fixed bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-slate-900 pointer-events-none"></div>
+      <div className="fixed top-1/4 left-1/4 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl -z-10"></div>
+      <div className="fixed bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl -z-10"></div>
     </div>
-  )
+  );
 }
-
-// Custom CSS for additional animations
-const styles = `
-  @keyframes spin-slow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  
-  @keyframes spin-reverse {
-    from { transform: rotate(360deg); }
-    to { transform: rotate(0deg); }
-  }
-  
-  .animate-spin-slow {
-    animation: spin-slow linear infinite;
-  }
-  
-  .animate-spin-reverse {
-    animation: spin-reverse linear infinite;
-  }
-`
