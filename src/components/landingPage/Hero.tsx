@@ -105,7 +105,7 @@ const [isTyping] = useState(true);
     return () => clearInterval(interval);
   }, [services.length]);
 
-  // Typing effect
+
   useEffect(() => {
     if (!isTyping || currentLine >= codeLines.length) return;
 
@@ -121,7 +121,7 @@ const [isTyping] = useState(true);
 
       return () => clearTimeout(timeout);
     } else {
-      // Move to next line
+   
       setTimeout(() => {
         if (currentLine < codeLines.length - 1) {
           setCurrentLine(prev => prev + 1);
@@ -131,7 +131,7 @@ const [isTyping] = useState(true);
             setTypedCode(lines.join('\n'));
           }
         } else {
-          // Restart typing after a pause
+        
           setTimeout(() => {
             setTypedCode('');
             setCurrentLine(0);
