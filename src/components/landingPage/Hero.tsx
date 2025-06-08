@@ -97,7 +97,7 @@ const [isTyping] = useState(true);
     { parts: [{ text: "}", color: "text-gray-300" }] }
   ];
 
-  // Service rotation effect
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentService((prev) => (prev + 1) % services.length);
