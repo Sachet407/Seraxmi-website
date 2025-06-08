@@ -128,7 +128,7 @@ const ShowProjects = () => {
             <OrbitControls
               enableZoom={false}
               enablePan={false}
-              enableRotate={true}
+             enableRotate={!isMobile}
               dampingFactor={0.05}
               enableDamping={true}
               rotateSpeed={isMobile ? 0.5 : 0.8}
