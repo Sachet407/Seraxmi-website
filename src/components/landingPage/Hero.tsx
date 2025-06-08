@@ -278,7 +278,7 @@ const [isTyping] = useState(true);
                 </div>
 
                 <div className="mt-3 md:mt-4 flex items-center space-x-2 text-green-400">
-                  <span>//</span>
+                 <span>{'//'}</span>
                   <span className="animate-pulse">Building the future...</span>
                 </div>
               </div>
