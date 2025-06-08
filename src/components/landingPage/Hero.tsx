@@ -6,7 +6,7 @@ const Hero = () => {
     const [currentService, setCurrentService] = useState(0);
   const [typedCode, setTypedCode] = useState('');
   const [currentLine, setCurrentLine] = useState(0);
-  const [isTyping, setIsTyping] = useState(true);
+const [isTyping] = useState(true);
 
   const services = [
     "App Development",
@@ -204,7 +204,7 @@ const Hero = () => {
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 items-center gap-8 md:gap-16 relative z-10">
         {/* Left Section */}
         <div className="text-center lg:text-left space-y-6 md:space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-3 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 border border-blue-200 dark:border-blue-800 rounded-full text-xs md:text-sm font-medium shadow-lg backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-3 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 border border-blue-200 dark:border-blue-800 rounded-full text-xs md:text-sm font-medium shadow-lg backdrop-blur-sm mt-6 md:mt-0">
             <Zap className="w-3 h-3 md:w-4 md:h-4 animate-pulse text-blue-600 dark:text-blue-400" />
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Leading Tech Solutions Provider
