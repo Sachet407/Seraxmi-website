@@ -45,7 +45,7 @@ const RotatingCylinder = () => {
 
 const ShowProjects = () => {
   const [isLoaded, setIsLoaded] = useState(false)
- const [_mousePos, setMousePos] = useState({ x: 0, y: 0 });
+ 
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -59,16 +59,11 @@ const ShowProjects = () => {
     checkIfMobile()
     window.addEventListener('resize', checkIfMobile)
     
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth) * 2 - 1,
-        y: -(e.clientY / window.innerHeight) * 2 + 1
-      })
-    }
+ 
     
-    window.addEventListener('mousemove', handleMouseMove)
+
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
+    )
       window.removeEventListener('resize', checkIfMobile)
     }
   }, [])
