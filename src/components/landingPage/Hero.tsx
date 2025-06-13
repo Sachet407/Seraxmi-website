@@ -1,23 +1,23 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Zap, ArrowRight, Sparkles } from "lucide-react";
 
 const Hero = () => {
-    const [currentService, setCurrentService] = useState(0);
+  const [currentService, setCurrentService] = useState(0);
   const [typedCode, setTypedCode] = useState('');
   const [currentLine, setCurrentLine] = useState(0);
-const [isTyping] = useState(true);
+  const [isTyping] = useState(true);
 
-  const services = [
+  const services = useMemo(() => [
     "App Development",
     "Web Development",
     "UI/UX Design",
     "Digital Marketing",
     "AI/ML Solutions",
     "Cyber Security",
-  ];
+  ], []);
 
-  const codeLines = [
+  const codeLines = useMemo(() => [
     "const innovation = 'unlimited';",
     "",
     "function buildFuture() {",
@@ -27,9 +27,9 @@ const [isTyping] = useState(true);
     "  ",
     "  return excellence + creativity;",
     "}"
-  ];
+  ], []);
 
-  const coloredCodeLines = [
+  const coloredCodeLines = useMemo(() => [
     {
       parts: [
         { text: "const", color: "text-blue-400" },
@@ -95,8 +95,7 @@ const [isTyping] = useState(true);
       ]
     },
     { parts: [{ text: "}", color: "text-gray-300" }] }
-  ];
-
+  ], []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -104,7 +103,6 @@ const [isTyping] = useState(true);
     }, 3000);
     return () => clearInterval(interval);
   }, [services.length]);
-
 
   useEffect(() => {
     if (!isTyping || currentLine >= codeLines.length) return;
@@ -121,7 +119,6 @@ const [isTyping] = useState(true);
 
       return () => clearTimeout(timeout);
     } else {
-   
       setTimeout(() => {
         if (currentLine < codeLines.length - 1) {
           setCurrentLine(prev => prev + 1);
@@ -131,7 +128,6 @@ const [isTyping] = useState(true);
             setTypedCode(lines.join('\n'));
           }
         } else {
-        
           setTimeout(() => {
             setTypedCode('');
             setCurrentLine(0);
@@ -139,7 +135,7 @@ const [isTyping] = useState(true);
         }
       }, 300);
     }
-  }, [typedCode, currentLine, isTyping,codeLines]);
+  }, [typedCode, currentLine, isTyping, codeLines]);
 
   interface CodeLinePart {
     text: string;
@@ -180,13 +176,11 @@ const [isTyping] = useState(true);
 
   return (
     <section className="relative min-h-screen flex items-center py-12 md:py-20 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-slate-900 dark:via-blue-950/30 dark:to-purple-950/30">
-     
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         <div className="absolute top-1/2 left-1/2 w-32 h-32 bg-orange-400/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
 
-   
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute inset-0 bg-[length:100px_100px] opacity-60 dark:opacity-20"
             style={{
@@ -202,7 +196,6 @@ const [isTyping] = useState(true);
       </div>
 
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 items-center gap-8 md:gap-16 relative z-10">
-  
         <div className="text-center lg:text-left space-y-6 md:space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-3 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 border border-blue-200 dark:border-blue-800 rounded-full text-xs md:text-sm font-medium shadow-lg backdrop-blur-sm mt-6 md:mt-0">
             <Zap className="w-3 h-3 md:w-4 md:h-4 animate-pulse text-blue-600 dark:text-blue-400" />
@@ -249,16 +242,12 @@ const [isTyping] = useState(true);
           </div>
         </div>
 
-      
         <div className="relative flex justify-center lg:justify-end mt-8 md:mt-0">
           <div className="relative w-full max-w-4xl">
-         
             <div className="absolute -top-4 -left-4 w-16 h-16 md:w-24 md:h-24 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-2xl rotate-12 animate-bounce" style={{ animationDuration: '3s' }}></div>
             <div className="absolute -bottom-4 -right-4 w-20 h-20 md:w-32 md:h-32 bg-gradient-to-br from-orange-400/20 to-pink-400/20 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
 
-  
             <div className="relative w-full h-[350px] md:h-[400px] lg:h-[500px] bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl shadow-2xl overflow-hidden border border-slate-700 backdrop-blur-sm">
-     
               <div className="flex items-center justify-between px-4 md:px-6 py-3 md:py-4 bg-slate-800/80 border-b border-slate-700">
                 <div className="flex items-center space-x-2 md:space-x-3">
                   <div className="w-2 h-2 md:w-3 md:h-3 bg-red-500 rounded-full animate-pulse"></div>
@@ -278,7 +267,7 @@ const [isTyping] = useState(true);
                 </div>
 
                 <div className="mt-3 md:mt-4 flex items-center space-x-2 text-green-400">
-                 <span>{'//'}</span>
+                  <span>{'//'}</span>
                   <span className="animate-pulse">Building the future...</span>
                 </div>
               </div>
@@ -289,7 +278,7 @@ const [isTyping] = useState(true);
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;
