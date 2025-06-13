@@ -233,7 +233,7 @@ const BlogSection = () => {
 
         {/* Regular Posts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-          {filteredPosts.slice(1).map((post, index) => (
+          {filteredPosts.slice(1).map((post) => (
             <article 
               key={post.id}
               className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2"
