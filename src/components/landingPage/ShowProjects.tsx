@@ -117,7 +117,7 @@ const ShowProjects = () => {
               >
                 {/* Project Number Badge */}
                 <div 
-                  className="absolute -right-6 -top-6 w-20 h-20 rounded-full flex items-center justify-center text-3xl font-black text-white opacity-80 group-hover:opacity-100 transition-all duration-500 z-10"
+                  className="absolute -right-3 -top-3 w-20 h-20 rounded-full flex items-center justify-center text-3xl font-black text-white opacity-80 group-hover:opacity-100 transition-all duration-500 z-10"
                   style={{ backgroundColor: accentColor }}
                 >
                   {String(project.id).padStart(2, '0')}
