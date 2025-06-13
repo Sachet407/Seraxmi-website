@@ -285,7 +285,7 @@ export default function WorldClassHeader() {
                     </div>
                     <div>
                       <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Book a Call</h2>
-                      <p className="text-gray-600 dark:text-gray-400 mt-1">Let's discuss your project and bring your vision to life</p>
+                 <p className="text-gray-600 dark:text-gray-400 mt-1">Let&apos;s discuss your project and bring your vision to life</p>
                     </div>
                   </div>
                 </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import Image from 'next/image'
 interface BlogPost {
   id: number
   title: string
@@ -172,7 +172,7 @@ const BlogSection = () => {
               <div className="grid lg:grid-cols-2 gap-0">
                 {/* Image Section */}
                 <div className="relative h-80 lg:h-96 overflow-hidden">
-                  <img
+                  <Image
                     src={filteredPosts[0].imageUrl}
                     alt={filteredPosts[0].title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -240,7 +240,7 @@ const BlogSection = () => {
             >
               {/* Image */}
               <div className="relative h-48 overflow-hidden">
-                <img
+                <Image
                   src={post.imageUrl}
                   alt={post.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
