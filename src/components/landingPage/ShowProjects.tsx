@@ -128,6 +128,7 @@ const ShowProjects = () => {
                   <Image
                     src={project.imageUrl}
                     alt={project.title}
+                        fill
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div 

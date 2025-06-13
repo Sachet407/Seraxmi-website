@@ -175,6 +175,7 @@ const BlogSection = () => {
                   <Image
                     src={filteredPosts[0].imageUrl}
                     alt={filteredPosts[0].title}
+                    fill
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
@@ -243,6 +244,7 @@ const BlogSection = () => {
                 <Image
                   src={post.imageUrl}
                   alt={post.title}
+                  fill
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>
