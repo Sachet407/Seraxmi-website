@@ -1,208 +1,230 @@
-import React, { useRef, useState, useEffect } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
-import { Bloom, EffectComposer } from '@react-three/postprocessing'
-import * as THREE from 'three'
+import React from 'react'
 
-// Rotating Cylinder Component
-const RotatingCylinder = () => {
-  const meshRef = useRef<THREE.Mesh>(null)
-  const [texture, setTexture] = useState<THREE.Texture | null>(null)
-
-  useEffect(() => {
-    const loader = new THREE.TextureLoader()
-    loader.load('/Frame.png', (loadedTexture) => {
-      loadedTexture.wrapS = THREE.RepeatWrapping
-      loadedTexture.wrapT = THREE.RepeatWrapping
-      loadedTexture.anisotropy = 16 // Improves texture quality
-      setTexture(loadedTexture)
-    })
-  }, [])
-
-  useFrame((state, delta) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.5
-    }
-  })
-
-  return (
-    <group>
-      {/* Main Cylinder - Smoother with more segments */}
-      <mesh ref={meshRef} position={[0, 0, 0]}>
-        <cylinderGeometry args={[4.5, 4.5, 5, 128, 128, true]} /> {/* Increased segments */}
-        <meshStandardMaterial
-          color="white"
-          side={THREE.DoubleSide}
-          map={texture}
-          transparent
-          roughness={0.5}
-          metalness={0.05}
-        />
-      </mesh>
-    </group>
-  )
+interface Project {
+  id: number
+  title: string
+  description: string
+  tags: string[]
+  imageUrl: string
+  liveUrl?: string
+  githubUrl?: string
 }
 
 const ShowProjects = () => {
-  const [isLoaded, setIsLoaded] = useState(false)
-
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    setIsLoaded(true)
-
-    // Check if mobile device
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
+  const projects: Project[] = [
+    {
+      id: 1,
+      title: 'EcoTracker',
+      description: 'Environmental impact tracking application with beautiful data visualizations that help users understand their carbon footprint and make sustainable choices.',
+      tags: ['React', 'D3.js', 'Sustainability'],
+      imageUrl: 'https://picsum.photos/800/600?random=1',
+      liveUrl: '#',
+      githubUrl: '#'
+    },
+    {
+      id: 2,
+      title: 'ArtVision AI',
+      description: 'Transforms sketches into professional artwork using cutting-edge generative AI models with customizable styles and advanced neural networks.',
+      tags: ['AI', 'TensorFlow', 'Creative'],
+      imageUrl: 'https://picsum.photos/800/600?random=2',
+      githubUrl: '#'
+    },
+    {
+      id: 3,
+      title: 'UrbanFit',
+      description: 'Mobile fitness solution for urban spaces with 15-minute effective workouts, smart nutrition tracking, and personalized training plans.',
+      tags: ['Flutter', 'Health', 'Mobile'],
+      imageUrl: 'https://picsum.photos/800/600?random=3',
+      liveUrl: '#'
+    },
+    {
+      id: 4,
+      title: 'CodeCollab',
+      description: 'Real-time collaborative coding environment with integrated video chat for remote teams, code reviews, and technical interviews.',
+      tags: ['WebRTC', 'Real-time', 'Developer'],
+      imageUrl: 'https://picsum.photos/800/600?random=4',
+      liveUrl: '#',
+      githubUrl: '#'
+    },
+    {
+      id: 5,
+      title: 'CryptoVault',
+      description: 'Secure cryptocurrency portfolio tracker with advanced analytics, price alerts, and multi-wallet integration for serious traders.',
+      tags: ['Blockchain', 'Security', 'Finance'],
+      imageUrl: 'https://picsum.photos/800/600?random=5',
+      liveUrl: '#',
+      githubUrl: '#'
+    },
+    {
+      id: 6,
+      title: 'MindSpace',
+      description: 'Mental wellness platform featuring guided meditation, mood tracking, and AI-powered insights for better mental health management.',
+      tags: ['Wellness', 'React Native', 'AI'],
+      imageUrl: 'https://picsum.photos/800/600?random=6',
+      liveUrl: '#'
     }
+  ]
 
-    checkIfMobile()
-    window.addEventListener('resize', checkIfMobile)
-
-
-    return () => {
-
-      window.removeEventListener('resize', checkIfMobile)
+  const getAccentColor = (id: number): string => {
+    const colors = {
+      1: '#10b981', // Emerald
+      2: '#8b5cf6', // Violet  
+      3: '#f59e0b', // Amber
+      4: '#ef4444', // Red
+      5: '#3b82f6', // Blue
+      6: '#ec4899'  // Pink
     }
-  }, [])
+    return colors[id as keyof typeof colors] || '#6366f1'
+  }
 
   return (
-    <div className="w-[90vw] md:w-[80vw] bg-gray-900 relative mx-auto rounded-3xl overflow-hidden">
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-8">
-        {/* Header */}
-        <div
-          className={`text-center mb-6 md:mb-8 lg:mb-12 transition-all duration-1200 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'
-            }`}
-        >
-          <div className="inline-flex items-center gap-3 mb-4 md:mb-6">
-            <div className="w-8 md:w-12 h-px bg-white opacity-50" />
-            <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
-            <div className="w-8 md:w-12 h-px bg-white opacity-50" />
+    <section className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 via-white to-blue-50">
+      <div className="max-w-7xl mx-auto">
+        {/* Header Section */}
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full mb-6">
+            <div className="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></div>
+            <span className="text-sm font-semibold text-slate-700">Featured Projects</span>
           </div>
-
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight">
-            Our Best Works
-            <span className="block text-white relative">
-              <div className="absolute -bottom-1 md:-bottom-2 left-1/2 transform -translate-x-1/2 w-16 md:w-24 h-0.5 bg-white opacity-50" />
+          
+          <h2 className="text-6xl font-black text-slate-900 mb-6 leading-tight">
+            <span className="relative inline-block">
+              Creative
+              <div className="absolute -bottom-2 left-0 w-full h-4 bg-gradient-to-r from-blue-400 to-purple-400 opacity-30 rounded-full transform rotate-1"></div>
             </span>
-          </h1>
+            <br />
+            <span className="relative inline-block mt-2">
+              Showcase
+              <div className="absolute -bottom-2 left-0 w-full h-4 bg-gradient-to-r from-pink-400 to-red-400 opacity-30 rounded-full transform -rotate-1"></div>
+            </span>
+          </h2>
+          
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            Explore my latest projects where innovation meets functionality. Each project represents 
+            a unique challenge solved with creative engineering and modern design principles.
+          </p>
         </div>
 
-        {/* 3D Canvas */}
-        <div
-          className={`relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] mb-3 lg:mb-12 transition-all duration-1200 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-          style={{ transitionDelay: '300ms' }}
-        >
-          <Canvas
-            camera={{
-              fov: isMobile ? 30 : 39,
-              position: [0, 0, isMobile ? 15 : 12],
-              near: 0.1,
-              far: 100
-            }}
-            gl={{
-              antialias: true,
-              powerPreference: "high-performance",
-              alpha: true
-            }}
-            dpr={[1, 2]}
-          >
-            {/* Balanced Lighting Setup */}
-            <ambientLight intensity={0.3} color="#ffffff" />
-            <directionalLight
-              position={[3, 3, 3]}
-              intensity={0.5}
-              color="#ffffff"
-            />
-            <directionalLight
-              position={[-3, -3, 3]}
-              intensity={0.3}
-              color="#ffffff"
-            />
-            <hemisphereLight
-              intensity={0.2}
-              groundColor="#404040"
-            />
-
-            <OrbitControls
-              enableZoom={false}
-              enablePan={false}
-             enableRotate={!isMobile}
-              dampingFactor={0.05}
-              enableDamping={true}
-              rotateSpeed={isMobile ? 0.5 : 0.8}
-              minPolarAngle={Math.PI / 6}
-              maxPolarAngle={Math.PI - Math.PI / 6}
-            />
-
-            <RotatingCylinder />
-
-            <EffectComposer multisampling={8}>
-              <Bloom
-                intensity={2}
-                kernelSize={1}
-                luminanceThreshold={0}
-                luminanceSmoothing={0}
-              />
-            </EffectComposer>
-          </Canvas>
-
-          {/* 3D Interaction Hint */}
-          {!isMobile && (
-            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-2 bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
-              <svg
-                className="w-5 h-5 animate-bounce"
-                fill="none"
-                stroke="white"
-                viewBox="0 0 24 24"
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+          {projects.map((project) => {
+            const accentColor = getAccentColor(project.id)
+            
+            return (
+              <div 
+                key={project.id}
+                className="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-700 transform hover:-translate-y-2"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-              </svg>
-              <span className="text-lg text-white/80">3D Drag to rotate</span>
-            </div>
-          )}
+                {/* Project Number Badge */}
+                <div 
+                  className="absolute -right-6 -top-6 w-20 h-20 rounded-full flex items-center justify-center text-3xl font-black text-white opacity-80 group-hover:opacity-100 transition-all duration-500 z-10"
+                  style={{ backgroundColor: accentColor }}
+                >
+                  {String(project.id).padStart(2, '0')}
+                </div>
 
-          {/* Corner Accents */}
-          <div className="absolute top-2 md:top-4 left-2 md:left-4 w-4 md:w-6 h-4 md:h-6 border-l-2 border-t-2 border-white/50" />
-          <div className="absolute top-2 md:top-4 right-2 md:right-4 w-4 md:w-6 h-4 md:h-6 border-r-2 border-t-2 border-white/50" />
-          <div className="absolute bottom-2 md:bottom-4 left-2 md:left-4 w-4 md:w-6 h-4 md:h-6 border-l-2 border-b-2 border-white/50" />
-          <div className="absolute bottom-2 md:bottom-4 right-2 md:right-4 w-4 md:w-6 h-4 md:h-6 border-r-2 border-b-2 border-white/50" />
+                {/* Project Image */}
+                <div className="relative h-64 overflow-hidden">
+                  <img
+                    src={project.imageUrl}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div 
+                    className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-500"
+                  ></div>
+                  
+                  {/* Overlay Content */}
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {project.tags.map(tag => (
+                        <span 
+                          key={tag}
+                          className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/20"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Project Content */}
+                <div className="p-6">
+                  <h3 
+                    className="text-2xl font-bold mb-3 group-hover:text-opacity-80 transition-colors duration-300"
+                    style={{ color: accentColor }}
+                  >
+                    {project.title}
+                  </h3>
+                  
+                  <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                    {project.description}
+                  </p>
+                  
+                  {/* Action Buttons */}
+                  <div className="flex space-x-3">
+                    {project.liveUrl && (
+                      <a 
+                        href={project.liveUrl}
+                        className="flex-1 px-4 py-2.5 rounded-lg font-semibold text-white text-center transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-sm"
+                        style={{
+                          backgroundColor: accentColor,
+                          boxShadow: `0 4px 14px ${accentColor}40`
+                        }}
+                      >
+                        Live Demo
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a 
+                        href={project.githubUrl}
+                        className="flex-1 px-4 py-2.5 border-2 rounded-lg font-semibold text-center transition-all duration-300 hover:bg-slate-50 text-sm"
+                        style={{
+                          borderColor: accentColor,
+                          color: accentColor
+                        }}
+                      >
+                        Code
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                {/* Hover Gradient Effect */}
+                <div 
+                  className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none rounded-2xl"
+                  style={{
+                    background: `linear-gradient(135deg, ${accentColor}20, transparent)`
+                  }}
+                ></div>
+              </div>
+            )
+          })}
         </div>
 
-        {/* Call to Action */}
-        <div
-          className={`text-center transition-all duration-1200 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-          style={{ transitionDelay: '600ms' }}
-        >
-          <button className="group relative px-6 py-3 md:px-8 md:py-4 lg:px-12 lg:py-5 bg-white text-black rounded-xl md:rounded-2xl font-semibold text-base md:text-lg overflow-hidden hover:shadow-2xl hover:shadow-white/25 transition-all duration-500 hover:scale-105">
-            <span className="relative z-10 flex items-center gap-2 md:gap-3">
-              Explore More
-              <svg
-                className="w-4 h-4 md:w-5 md:h-5 transform group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </span>
-
-            <div className="absolute inset-0 bg-gray-100 opacity-0 group-hover:opacity-100 transition-all duration-500" />
-
-            {/* Button Glow */}
-            <div className="absolute -inset-0.5 bg-white rounded-xl md:rounded-2xl blur opacity-20 group-hover:opacity-40 transition-all duration-500" />
+        {/* View All Button */}
+        <div className="text-center mt-16">
+          <button className="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-slate-900 to-slate-700 text-white font-semibold rounded-full overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-105">
+            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>
+            
+            <span className="relative z-10 mr-2">View All Projects</span>
+            
+            <svg 
+              className="relative z-10 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+            
+            {/* Ripple Effect */}
+            <div className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 group-hover:animate-ping"></div>
           </button>
-
-
         </div>
       </div>
-
-      {/* Gradient Overlays */}
-      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black/50 to-transparent pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
-    </div>
+    </section>
   )
 }
 
