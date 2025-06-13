@@ -401,7 +401,7 @@ export default function WorldClassHeader() {
                 <p className="text-gray-600 dark:text-gray-400 text-lg mb-2">Your meeting request has been submitted successfully.</p>
                 <p className="text-[#188f8b] font-semibold text-lg">Stay updated on your Gmail account please.</p>
                 <div className="mt-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-xl">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">We'll reach out to you within 24 hours to schedule your consultation.</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">We&apos;ll reach out to you within 24 hours to schedule your consultation.</p>
                 </div>
               </div>
             )}
