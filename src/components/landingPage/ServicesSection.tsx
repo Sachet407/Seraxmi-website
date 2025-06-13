@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { Code2, Smartphone, Shield, BrainCircuit, Cloud, TrendingUp, ArrowRight } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
