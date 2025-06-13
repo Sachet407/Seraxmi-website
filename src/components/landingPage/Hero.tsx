@@ -2,6 +2,15 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Zap, ArrowRight, Sparkles } from "lucide-react";
 
+interface CodeLinePart {
+  text: string;
+  color: string;
+}
+
+interface ColoredCodeLine {
+  parts: CodeLinePart[];
+}
+
 const Hero = () => {
   const [currentService, setCurrentService] = useState(0);
   const [typedCode, setTypedCode] = useState('');
@@ -137,24 +146,15 @@ const Hero = () => {
     }
   }, [typedCode, currentLine, isTyping, codeLines]);
 
-  interface CodeLinePart {
-    text: string;
-    color: string;
-  }
-
-  interface ColoredCodeLine {
-    parts: CodeLinePart[];
-  }
-
   const renderColoredLine = (lineIndex: number) => {
-    const line: ColoredCodeLine = coloredCodeLines[lineIndex];
-    const typedLines: string[] = typedCode.split('\n');
-    const typedLine: string = typedLines[lineIndex] || '';
+    const line = coloredCodeLines[lineIndex];
+    const typedLines = typedCode.split('\n');
+    const typedLine = typedLines[lineIndex] || '';
 
     let charCount = 0;
     return (
-      <div key={lineIndex} className="min-h-[1.5rem]">
-        {line.parts.map((part: CodeLinePart, partIndex: number) => {
+      <div key={`line-${lineIndex}`} className="min-h-[1.5rem]">
+        {line.parts.map((part, partIndex) => {
           const startChar = charCount;
           const endChar = charCount + part.text.length;
           charCount += part.text.length;
@@ -162,7 +162,10 @@ const Hero = () => {
           const visibleText = typedLine.slice(startChar, endChar);
 
           return (
-            <span key={partIndex} className={part.color || "text-gray-300"}>
+            <span 
+              key={`part-${lineIndex}-${partIndex}`} 
+              className={part.color || "text-gray-300"}
+            >
               {visibleText}
             </span>
           );
@@ -214,11 +217,8 @@ const Hero = () => {
 
             <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-slate-700 dark:text-slate-300">
               <span>for </span>
-              <span className="relative inline-block">
-                <span
-                  key={currentService}
-                  className="bg-[#1a837f] bg-clip-text text-transparent font-semibold animate-pulse transition-all duration-700 ease-in-out"
-                >
+              <span className="relative inline-block" key={services[currentService]}>
+                <span className="bg-[#1a837f] bg-clip-text text-transparent font-semibold animate-pulse transition-all duration-700 ease-in-out">
                   {services[currentService]}
                 </span>
                 <div className="absolute -bottom-1 md:-bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-teal-400 to-cyan-400 rounded-full transform scale-x-0 animate-pulse" style={{ animation: 'scaleX 3s infinite' }}></div>
@@ -263,7 +263,11 @@ const Hero = () => {
 
               <div className="p-4 md:p-6 font-mono text-sm md:text-lg leading-relaxed">
                 <div className="space-y-1">
-                  {coloredCodeLines.map((_, index) => renderColoredLine(index))}
+                  {coloredCodeLines.map((_, index) => (
+                    <React.Fragment key={`codeline-${index}`}>
+                      {renderColoredLine(index)}
+                    </React.Fragment>
+                  ))}
                 </div>
 
                 <div className="mt-3 md:mt-4 flex items-center space-x-2 text-green-400">
