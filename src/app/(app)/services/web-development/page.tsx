@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Code, Globe, Shield, Cpu, Layout, Smartphone, Zap, ArrowRight, Star, Users, Award, CheckCircle } from "lucide-react";
-
+import Image from "next/image";
 const WebDevelopmentPage = () => {
   const services = [
     {
@@ -133,10 +133,11 @@ const WebDevelopmentPage = () => {
             </div>
             <div className="relative">
               <div className="relative bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-2xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                <img 
+                <Image
                   src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop&crop=center" 
                   alt="Modern web development workspace"
                   className="w-full h-80 object-cover"
+                  fill
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
                 <div className="absolute bottom-6 left-6 right-6">
@@ -196,9 +197,10 @@ const WebDevelopmentPage = () => {
                 className="group bg-white dark:bg-slate-800 rounded-2xl shadow-lg hover:shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden transition-all duration-500 hover:scale-105"
               >
                 <div className="relative h-48 overflow-hidden">
-                  <img 
+                  <Image 
                     src={service.image} 
                     alt={service.title}
+                    fill
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
@@ -281,9 +283,10 @@ const WebDevelopmentPage = () => {
                 <div className="lg:w-1/2">
                   <div className="relative">
                     <div className="relative bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-2xl overflow-hidden shadow-2xl">
-                      <img 
+                      <Image
                         src={step.image} 
                         alt={step.title}
+                        fill
                         className="w-full h-80 object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent"></div>

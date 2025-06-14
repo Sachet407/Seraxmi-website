@@ -270,7 +270,7 @@ const AIMLSolutionsPage = () => {
               Ready to Harness AI?
             </h2>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Let's discuss how AI can transform your business.
+              Let&apos;s discuss how AI can transform your business.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <button className="px-8 py-4 bg-white text-[#188f8b] font-semibold rounded-lg shadow-lg hover:bg-slate-100 transition-colors duration-300">

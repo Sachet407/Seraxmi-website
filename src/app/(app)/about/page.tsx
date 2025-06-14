@@ -172,15 +172,15 @@ const AboutUs = () => {
             </h3>
             <div className="space-y-4 text-slate-600 dark:text-slate-400">
               <p>
-                Founded in 2015, Seraxmi began as a small team of passionate developers with a vision to 
-                bridge the digital divide. Today, we're a global technology partner serving clients worldwide.
+                Founded in 2025, Seraxmi began as a small team of passionate developers with a vision to 
+                bridge the digital divide. Today, we&apos;re a global technology partner serving clients worldwide.
               </p>
               <p>
                 Our journey has been marked by relentless innovation, from our first mobile app to our current AI-powered 
-                enterprise solutions. We've stayed true to our core belief: technology should empower, not complicate.
+                enterprise solutions. We&apos;ve stayed true to our core belief: technology should empower, not complicate.
               </p>
               <p>
-                What sets us apart is our human-centered approach. We don't just build software - we craft digital 
+                What sets us apart is our human-centered approach. We don&apos;t just build software - we craft digital 
                 experiences that solve real problems and create meaningful impact.
               </p>
             </div>

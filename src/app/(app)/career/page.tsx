@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef, ChangeEvent } from "react";
 import { motion } from "framer-motion";
-import { Rocket, Users, Globe, Briefcase, Award, Clock, Zap, HeartHandshake, FileText, X, Loader2, CheckCircle } from "lucide-react";
+import { Globe, Briefcase, Award, Clock, Zap, HeartHandshake, FileText, X, Loader2, CheckCircle } from "lucide-react";
 
 const CareersPage = () => {
   // Job openings data
@@ -269,7 +269,7 @@ const CareersPage = () => {
               Build the Future With Us
             </h1>
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-              We're looking for passionate individuals to help us create innovative solutions that make a difference.
+              We&apos;re looking for passionate individuals to help us create innovative solutions that make a difference.
             </p>
           </motion.div>
         </div>
@@ -411,7 +411,7 @@ const CareersPage = () => {
                 Apply Now
               </h2>
               <p className="text-slate-600 dark:text-slate-400">
-                Ready to join our team? Fill out the form below and we'll get back to you soon.
+                Ready to join our team? Fill out the form below and we&apos;ll get back to you soon.
               </p>
             </div>
 
