@@ -2,7 +2,7 @@
 import React from "react";
 import { Smartphone, Cpu, Zap, ArrowRight, Code, Database, Shield, SmartphoneCharging, Globe } from "lucide-react";
 import { motion } from "framer-motion";
-import Image from "next/image";
+
 
 const AppDevelopmentPage = () => {
   const services = [

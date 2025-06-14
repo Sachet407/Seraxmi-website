@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Code, Globe, Shield, Cpu, Layout, Smartphone, Database, Zap, ArrowRight, Star, Users, Award, CheckCircle } from "lucide-react";
+import { Code, Globe, Shield, Cpu, Layout, Smartphone, Zap, ArrowRight, Star, Users, Award, CheckCircle } from "lucide-react";
 
 const WebDevelopmentPage = () => {
   const services = [
@@ -320,7 +320,7 @@ const WebDevelopmentPage = () => {
               <span>Ready to Transform Your Digital Presence?</span>
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-              Let's Build Something
+              Let&apos;s Build Something
               <span className="block bg-gradient-to-r from-slate-200 to-teal-200 bg-clip-text text-transparent">
                 Extraordinary Together
               </span>
