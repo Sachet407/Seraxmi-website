@@ -1,88 +1,167 @@
 "use client";
-import React from 'react';
-import { Code2, Smartphone, Shield, BrainCircuit, Cloud, TrendingUp, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { Code2, Smartphone, Shield, BrainCircuit, Cloud, TrendingUp, ArrowRight, Loader2 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface ServiceCardProps {
   icon: LucideIcon;
   title: string;
   description: string;
-  accentColor: string;
+  colorScheme: ColorScheme;
   href: string;
+}
+
+interface ColorScheme {
+  border: string;
+  text: string;
+  bg: string;
+  bgLight: string;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ 
   icon: Icon, 
   title, 
   description, 
-  accentColor,
+  colorScheme,
   href
-}) => (
-  <div className={`relative group flex flex-col p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-all duration-300 border-t-4 ${accentColor} hover:-translate-y-2 h-full`}>
-    <div className="mb-4 p-3 rounded-lg bg-opacity-10 inline-flex" style={{ backgroundColor: `${accentColor.replace('border', 'bg')}20` }}>
-      <Icon 
-        size={28}
-        strokeWidth={1.5}
-        className={`${accentColor.replace('border', 'text')}`}
-      />
-    </div>
-    <h3 className="text-lg font-semibold mb-2 text-gray-900">{title}</h3>
-    <p className="text-gray-600 text-sm mb-6">{description}</p>
+}) => {
+  const [isNavigating, setIsNavigating] = useState(false);
+  const router = useRouter();
+
+  const handleNavigation = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsNavigating(true);
     
-    <div className="mt-auto">
-      <Link href={href} className={`inline-flex items-center ${accentColor.replace('border', 'text')} group-hover:underline font-medium`}>
-        Explore more
-        <ArrowRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
-      </Link>
+    try {
+      await router.push(href);
+    } catch (error) {
+      console.error('Navigation error:', error);
+    } finally {
+      // Reset loading state after a short delay
+      setTimeout(() => setIsNavigating(false), 500);
+    }
+  };
+
+  return (
+    <div className={`relative group flex flex-col p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-all duration-300 ${colorScheme.border} border-t-4 hover:-translate-y-2 h-full`}>
+      <div className={`mb-4 p-3 rounded-lg ${colorScheme.bgLight} inline-flex`}>
+        <Icon 
+          size={28}
+          strokeWidth={1.5}
+          className={colorScheme.text}
+        />
+      </div>
+      <h3 className="text-lg font-semibold mb-2 text-gray-900">{title}</h3>
+      <p className="text-gray-600 text-sm mb-6">{description}</p>
+      
+      <div className="mt-auto">
+        <Link 
+          href={href} 
+          onClick={handleNavigation}
+          className={`inline-flex items-center ${colorScheme.text} group-hover:underline font-medium transition-colors duration-200`}
+        >
+          {isNavigating ? (
+            <>
+              <Loader2 size={16} className="animate-spin mr-2" />
+              Loading...
+            </>
+          ) : (
+            <>
+              Explore more
+              <ArrowRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform duration-200" />
+            </>
+          )}
+        </Link>
+      </div>
+      
+      <div className={`absolute inset-0 rounded-xl border-2 ${colorScheme.border} opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 z-10`}></div>
     </div>
-    
-    <div className={`absolute inset-0 rounded-xl border-2 ${accentColor} opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300 z-10`}></div>
-  </div>
-);
+  );
+};
 
 const ServicesSection: React.FC = () => {
+  const colorSchemes: Record<string, ColorScheme> = {
+    blue: {
+      border: 'border-blue-500',
+      text: 'text-blue-600',
+      bg: 'bg-blue-500',
+      bgLight: 'bg-blue-50'
+    },
+    purple: {
+      border: 'border-purple-500',
+      text: 'text-purple-600',
+      bg: 'bg-purple-500',
+      bgLight: 'bg-purple-50'
+    },
+    green: {
+      border: 'border-green-500',
+      text: 'text-green-600',
+      bg: 'bg-green-500',
+      bgLight: 'bg-green-50'
+    },
+    red: {
+      border: 'border-red-500',
+      text: 'text-red-600',
+      bg: 'bg-red-500',
+      bgLight: 'bg-red-50'
+    },
+    yellow: {
+      border: 'border-yellow-500',
+      text: 'text-yellow-600',
+      bg: 'bg-yellow-500',
+      bgLight: 'bg-yellow-50'
+    },
+    pink: {
+      border: 'border-pink-500',
+      text: 'text-pink-600',
+      bg: 'bg-pink-500',
+      bgLight: 'bg-pink-50'
+    }
+  };
+
   const services = [
     {
       icon: Code2,
       title: 'Web Development',
       description: 'Custom websites and web applications tailored to your business needs with modern technologies.',
-      accentColor: 'border-blue-500',
+      colorScheme: colorSchemes.blue,
       href: '/services/web-development'
     },
     {
       icon: Smartphone,
       title: 'App Development',
       description: 'Cross-platform mobile applications for iOS and Android that delight your users.',
-      accentColor: 'border-purple-500',
+      colorScheme: colorSchemes.purple,
       href: '/services/app-development'
     },
     {
       icon: Shield,
       title: 'Cyber Security',
       description: 'Comprehensive protection for your digital assets and infrastructure against threats.',
-      accentColor: 'border-green-500',
+      colorScheme: colorSchemes.green,
       href: '/services/cyber-security'
     },
     {
       icon: BrainCircuit,
       title: 'AI/ML Solutions',
       description: 'Intelligent systems and predictive analytics to transform your business operations.',
-      accentColor: 'border-red-500',
+      colorScheme: colorSchemes.red,
       href: '/services/ai-ml-solutions'
     },
     {
       icon: Cloud,
       title: 'Cloud Solutions',
       description: 'Scalable cloud infrastructure and migration services for modern businesses.',
-      accentColor: 'border-yellow-500',
+      colorScheme: colorSchemes.yellow,
       href: '/services/cloud-solutions'
     },
     {
       icon: TrendingUp,
       title: 'Digital Marketing',
       description: 'Data-driven strategies to grow your online presence and boost conversions.',
-      accentColor: 'border-pink-500',
+      colorScheme: colorSchemes.pink,
       href: '/services/digital-marketing'
     }
   ];
@@ -109,7 +188,7 @@ const ServicesSection: React.FC = () => {
               icon={service.icon}
               title={service.title}
               description={service.description}
-              accentColor={service.accentColor}
+              colorScheme={service.colorScheme}
               href={service.href}
             />
           ))}
