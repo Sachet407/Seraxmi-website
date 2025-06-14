@@ -2,10 +2,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Zap, ArrowRight, Sparkles } from "lucide-react";
 
-interface CodeLinePart {
-  text: string;
-  color: string;
-}
 
 
 const Hero = () => {
