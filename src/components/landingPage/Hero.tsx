@@ -7,9 +7,6 @@ interface CodeLinePart {
   color: string;
 }
 
-interface ColoredCodeLine {
-  parts: CodeLinePart[];
-}
 
 const Hero = () => {
   const [currentService, setCurrentService] = useState(0);
