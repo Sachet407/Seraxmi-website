@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Inter } from "next/font/google";
 import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const outfit = Outfit({
   variable: "--font-space-grotesk",
@@ -28,6 +29,7 @@ export default function RootLayout({
         className={`${outfit.variable} ${inter.variable} antialiased`}
       >
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );

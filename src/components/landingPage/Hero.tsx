@@ -117,7 +117,7 @@ const Hero = () => {
         const lines = typedCode.split('\n');
         lines[currentLine] = currentLineText.slice(0, currentTypedLength + 1);
         setTypedCode(lines.join('\n'));
-      }, 50 + Math.random() * 50);
+      }, 50 + (currentLine % 3) * 25);
 
       return () => clearTimeout(timeout);
     } else {
