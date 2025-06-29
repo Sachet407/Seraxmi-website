@@ -2,21 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import BlogPostModel from "@/model/BlogPost";
 
-// Custom context type to match expected Next.js dynamic route shape
-type Context = {
-  params: {
-    id: string;
-  };
-};
-
-// GET /api/blog/[id]
 export async function GET(
   request: NextRequest,
-  { params }: Context
+  context: { params: { id: string } } // ✅ This is the correct type
 ) {
   try {
     await dbConnect();
-    const blog = await BlogPostModel.findById(params.id);
+    const blog = await BlogPostModel.findById(context.params.id);
 
     if (!blog) {
       return NextResponse.json({ success: false, message: "Blog not found" }, { status: 404 });
@@ -29,17 +21,16 @@ export async function GET(
   }
 }
 
-// PUT /api/blog/[id]
 export async function PUT(
   request: NextRequest,
-  { params }: Context
+  context: { params: { id: string } } // ✅ Same typing
 ) {
   try {
     await dbConnect();
     const body = await request.json();
 
     const updatedBlog = await BlogPostModel.findByIdAndUpdate(
-      params.id,
+      context.params.id,
       body,
       { new: true, runValidators: true }
     );
@@ -59,14 +50,13 @@ export async function PUT(
   }
 }
 
-// DELETE /api/blog/[id]
 export async function DELETE(
   request: NextRequest,
-  { params }: Context
+  context: { params: { id: string } } // ✅ Same typing
 ) {
   try {
     await dbConnect();
-    const deletedBlog = await BlogPostModel.findByIdAndDelete(params.id);
+    const deletedBlog = await BlogPostModel.findByIdAndDelete(context.params.id);
 
     if (!deletedBlog) {
       return NextResponse.json({ success: false, message: "Blog not found" }, { status: 404 });
