@@ -31,7 +31,7 @@ const SignInPage = () => {
         router.push('/admin/dashboard');
       }
     } catch (err) {
-      setError('An unexpected error occurred');
+     setError(err instanceof Error ? err.message : 'An unexpected error occurred');
     } finally {
       setIsLoading(false);
     }
