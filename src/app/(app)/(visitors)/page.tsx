@@ -76,7 +76,7 @@ const MaintenancePage = () => {
       <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
 
       {/* Maintenance Popup Modal */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 mt-7">
         <div className="bg-white rounded-xl sm:rounded-2xl shadow-2xl max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-2xl w-full mx-auto transform animate-fadeIn border border-gray-100 max-h-[95vh] overflow-y-auto">
           {/* Header */}
           <div className="relative p-4 sm:p-5 md:p-6 lg:p-8 border-b border-gray-100">
