@@ -4,12 +4,13 @@ import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(
   _request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
     
-    const blog = await BlogPostModel.findById(params.id);
+    const { id } = await params;
+    const blog = await BlogPostModel.findById(id);
     
     if (!blog) {
       return NextResponse.json(
@@ -30,14 +31,15 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
     const body = await request.json();
+    const { id } = await params;
     
     const updatedBlog = await BlogPostModel.findByIdAndUpdate(
-      params.id,
+      id,
       body,
       { new: true, runValidators: true }
     );
@@ -65,12 +67,13 @@ export async function PUT(
 
 export async function DELETE(
   _request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
     
-    const deletedBlog = await BlogPostModel.findByIdAndDelete(params.id);
+    const { id } = await params;
+    const deletedBlog = await BlogPostModel.findByIdAndDelete(id);
     
     if (!deletedBlog) {
       return NextResponse.json(
