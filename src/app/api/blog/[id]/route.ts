@@ -1,9 +1,10 @@
 import dbConnect from "@/lib/dbConnect";
 import BlogPostModel from '@/model/BlogPost';
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(
-   { params }: { params: { [key: string]: string | string[] } }
+  _request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   try {
     await dbConnect();
@@ -28,8 +29,8 @@ export async function GET(
 }
 
 export async function PUT(
-  request: Request,
-  { params }: { params: { [key: string]: string | string[] } }
+  request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   try {
     await dbConnect();
@@ -63,12 +64,13 @@ export async function PUT(
 }
 
 export async function DELETE(
-  { params }: { params: { [key: string]: string | string[] } }
+  _request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   try {
     await dbConnect();
     
-    const deletedBlog = await BlogPostModel.findByIdAndDelete(params.id as string);
+    const deletedBlog = await BlogPostModel.findByIdAndDelete(params.id);
     
     if (!deletedBlog) {
       return NextResponse.json(
