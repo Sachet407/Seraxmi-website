@@ -155,8 +155,7 @@ const MaintenancePage = () => {
           </div>
         </div>
       </div>
-
-    </div>
+ </div>
   );
 };
 

@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useRef } from "react"
 import Image from "next/image"
 
 interface Project {
@@ -156,7 +156,7 @@ const ShowProjects = () => {
               msOverflowStyle: 'none'
             }}
           >
-            {projects.map((project, index) => {
+            {projects.map((project) => {
               const accent = getAccent(project.id)
               
               return (
