@@ -3,7 +3,6 @@ import dbConnect from "@/lib/dbConnect";
 import BlogPostModel from '@/model/BlogPost';
 
 export async function GET(
-  request: NextRequest,
   context: { params: { id: string } }
 ) {
   try {
