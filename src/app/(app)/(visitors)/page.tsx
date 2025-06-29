@@ -14,16 +14,13 @@ const MaintenancePage = () => {
     minutes: 0,
     seconds: 0
   });
+    const [targetDate] = useState(() => {
+    const date = new Date();
+    date.setDate(date.getDate() + 2);
+    return date;
+  });
 
-  useEffect(() => {
-    // Set a FIXED target date - replace this with your actual maintenance end date
-    // Example: July 1, 2025 at 12:00 PM
-    const targetDate = new Date('2025-07-01T12:00:00');
-    
-    // Alternative: If you want it to be 2 days from when you first deploy this code,
-    // uncomment the lines below and comment out the line above:
-    // const targetDate = new Date('2025-07-01T12:00:00'); // Set your specific end date here
-    
+   useEffect(() => {
     const updateCountdown = () => {
       const now = new Date().getTime();
       const distance = targetDate.getTime() - now;
@@ -40,11 +37,13 @@ const MaintenancePage = () => {
       }
     };
 
+    // Calculate initial time immediately
     updateCountdown();
     const interval = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [targetDate]);
+
 
   type TimeCardProps = {
     value: number;
@@ -157,29 +156,6 @@ const MaintenancePage = () => {
         </div>
       </div>
 
-      {/* Custom Animation Styles */}
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: scale(0.95) translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-          }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.3s ease-out;
-        }
-        
-        /* Ensure proper scrolling on very small screens */
-        @media (max-height: 600px) {
-          .max-h-\[95vh\] {
-            max-height: 100vh;
-          }
-        }
-      `}</style>
     </div>
   );
 };
