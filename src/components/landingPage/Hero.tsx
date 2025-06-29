@@ -36,7 +36,7 @@ const Hero = () => {
     "  const technology = 'cutting-edge';",
     "  const passion = 'infinite';",
     "  ",
-    "  return excellence + creativity;",
+    "  return excellence + impact;",
     "}"
   ], []);
 

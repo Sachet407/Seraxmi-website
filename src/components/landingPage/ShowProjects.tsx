@@ -1,230 +1,293 @@
 "use client"
-import React from 'react'
-import Image from 'next/image'
+import React, { useState, useEffect } from "react"
+import Image from "next/image"
+
 interface Project {
   id: number
   title: string
   description: string
   tags: string[]
   imageUrl: string
-  liveUrl?: string
   githubUrl?: string
+  liveUrl?: string
+}
+
+const projects: Project[] = [
+  {
+    id: 1,
+    title: 'EcoTracker',
+    description: 'Environmental impact tracking application with beautiful data visualizations that help users understand their carbon footprint and make sustainable choices.',
+    tags: ['React', 'D3.js', 'Sustainability'],
+    imageUrl: 'https://picsum.photos/800/600?random=1',
+  },
+  {
+    id: 2,
+    title: 'ArtVision AI',
+    description: 'Transforms sketches into professional artwork using cutting-edge generative AI models with customizable styles and advanced neural networks.',
+    tags: ['AI', 'TensorFlow', 'Creative'],
+    imageUrl: 'https://picsum.photos/800/600?random=2',
+    githubUrl: '#'
+  },
+  {
+    id: 3,
+    title: 'FinSavvy',
+    description: 'A sleek personal finance dashboard that helps users track spending, create budgets, and visualize savings goals.',
+    tags: ['Next.js', 'Chart.js', 'MongoDB'],
+    imageUrl: 'https://picsum.photos/800/600?random=3',
+    liveUrl: '#'
+  },
+  {
+    id: 4,
+    title: 'Nomadify',
+    description: 'Travel planning platform that curates personalized itineraries using AI and crowd-sourced tips from global travelers.',
+    tags: ['TypeScript', 'OpenAI API', 'TailwindCSS'],
+    imageUrl: 'https://picsum.photos/800/600?random=4',
+    githubUrl: '#'
+  },
+  {
+    id: 5,
+    title: 'SkillBridge',
+    description: 'Micro-learning web app where users can build skills in short daily challenges with a gamified experience.',
+    tags: ['React', 'Firebase', 'Gamification'],
+    imageUrl: 'https://picsum.photos/800/600?random=5',
+    liveUrl: '#'
+  },
+  {
+    id: 6,
+    title: 'SecureChat',
+    description: 'Real-time encrypted chat app with ephemeral messages and custom emoji reactions.',
+    tags: ['WebSockets', 'Node.js', 'Security'],
+    imageUrl: 'https://picsum.photos/800/600?random=6',
+    githubUrl: '#'
+  },
+  {
+    id: 7,
+    title: 'CodeQuest',
+    description: 'Interactive coding puzzle game where users solve challenges to unlock new levels and powers.',
+    tags: ['Canvas', 'React', 'Game Logic'],
+    imageUrl: 'https://picsum.photos/800/600?random=7',
+  },
+  {
+    id: 8,
+    title: 'FitMeal Planner',
+    description: 'Nutrition-focused meal planning app with recipe suggestions based on fitness goals and dietary preferences.',
+    tags: ['Next.js', 'TailwindCSS', 'API Integration'],
+    imageUrl: 'https://picsum.photos/800/600?random=8',
+    liveUrl: '#'
+  },
+  {
+    id: 9,
+    title: 'Seraxmi Admin',
+    description: 'Custom-built admin panel with advanced analytics, role-based access, and project control for clients.',
+    tags: ['Next.js', 'MongoDB', 'Zustand', 'ShadCN'],
+    imageUrl: 'https://picsum.photos/800/600?random=9',
+    githubUrl: '#'
+  },
+  {
+    id: 10,
+    title: 'MuseMood',
+    description: 'AI-powered music mood generator that recommends playlists based on user sentiment and facial expressions.',
+    tags: ['AI/ML', 'Emotion Detection', 'Spotify API'],
+    imageUrl: 'https://picsum.photos/800/600?random=10',
+    liveUrl: '#'
+  }
+]
+
+const getAccent = (id: number) => {
+  const colors = ['#14b8a6', '#6366f1', '#f97316', '#e11d48', '#0ea5e9', '#8b5cf6', '#10b981', '#f59e0b']
+  return colors[id % colors.length]
 }
 
 const ShowProjects = () => {
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: 'EcoTracker',
-      description: 'Environmental impact tracking application with beautiful data visualizations that help users understand their carbon footprint and make sustainable choices.',
-      tags: ['React', 'D3.js', 'Sustainability'],
-      imageUrl: 'https://picsum.photos/800/600?random=1',
-      liveUrl: '#',
-      githubUrl: '#'
-    },
-    {
-      id: 2,
-      title: 'ArtVision AI',
-      description: 'Transforms sketches into professional artwork using cutting-edge generative AI models with customizable styles and advanced neural networks.',
-      tags: ['AI', 'TensorFlow', 'Creative'],
-      imageUrl: 'https://picsum.photos/800/600?random=2',
-      githubUrl: '#'
-    },
-    {
-      id: 3,
-      title: 'UrbanFit',
-      description: 'Mobile fitness solution for urban spaces with 15-minute effective workouts, smart nutrition tracking, and personalized training plans.',
-      tags: ['Flutter', 'Health', 'Mobile'],
-      imageUrl: 'https://picsum.photos/800/600?random=3',
-      liveUrl: '#'
-    },
-    {
-      id: 4,
-      title: 'CodeCollab',
-      description: 'Real-time collaborative coding environment with integrated video chat for remote teams, code reviews, and technical interviews.',
-      tags: ['WebRTC', 'Real-time', 'Developer'],
-      imageUrl: 'https://picsum.photos/800/600?random=4',
-      liveUrl: '#',
-      githubUrl: '#'
-    },
-    {
-      id: 5,
-      title: 'CryptoVault',
-      description: 'Secure cryptocurrency portfolio tracker with advanced analytics, price alerts, and multi-wallet integration for serious traders.',
-      tags: ['Blockchain', 'Security', 'Finance'],
-      imageUrl: 'https://picsum.photos/800/600?random=5',
-      liveUrl: '#',
-      githubUrl: '#'
-    },
-    {
-      id: 6,
-      title: 'MindSpace',
-      description: 'Mental wellness platform featuring guided meditation, mood tracking, and AI-powered insights for better mental health management.',
-      tags: ['Wellness', 'React Native', 'AI'],
-      imageUrl: 'https://picsum.photos/800/600?random=6',
-      liveUrl: '#'
-    }
-  ]
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [hoveredId, setHoveredId] = useState<number | null>(null)
 
-  const getAccentColor = (id: number): string => {
-    const colors = {
-      1: '#10b981', // Emerald
-      2: '#8b5cf6', // Violet  
-      3: '#f59e0b', // Amber
-      4: '#ef4444', // Red
-      5: '#3b82f6', // Blue
-      6: '#ec4899'  // Pink
+  // Prevent horizontal scroll navigation
+  useEffect(() => {
+    const preventNavigation = (e: WheelEvent) => {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        e.preventDefault()
+      }
     }
-    return colors[id as keyof typeof colors] || '#6366f1'
-  }
+
+    document.addEventListener('wheel', preventNavigation, { passive: false })
+    return () => document.removeEventListener('wheel', preventNavigation)
+  }, [])
 
   return (
-    <section className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 via-white to-blue-50">
-      <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full mb-6">
-            <div className="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></div>
-            <span className="text-sm font-semibold text-slate-700">Featured Projects</span>
-          </div>
-          
-          <h2 className="text-6xl font-black text-slate-900 mb-6 leading-tight">
-            <span className="relative inline-block">
-              Creative
-              <div className="absolute -bottom-2 left-0 w-full h-4 bg-gradient-to-r from-blue-400 to-purple-400 opacity-30 rounded-full transform rotate-1"></div>
-            </span>
-            <br />
-            <span className="relative inline-block mt-2">
-              Showcase
-              <div className="absolute -bottom-2 left-0 w-full h-4 bg-gradient-to-r from-pink-400 to-red-400 opacity-30 rounded-full transform -rotate-1"></div>
-            </span>
+    <section className="min-h-screen bg-white relative overflow-hidden">
+      {/* Floating background elements for visual interest */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-blue-100 rounded-full opacity-30 animate-pulse"></div>
+        <div className="absolute top-60 right-20 w-24 h-24 bg-purple-100 rounded-full opacity-40 animate-bounce"></div>
+        <div className="absolute bottom-40 left-1/4 w-20 h-20 bg-green-100 rounded-full opacity-30 animate-pulse"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-5xl font-extrabold text-slate-900 leading-tight mb-4">
+            Creative <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Portfolio</span>
           </h2>
-          
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Explore my latest projects where innovation meets functionality. Each project represents 
-            a unique challenge solved with creative engineering and modern design principles.
+          <p className="text-slate-600 text-lg max-w-2xl mx-auto">
+            Explore my digital creations through an interactive showcase
           </p>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-          {projects.map((project) => {
-            const accentColor = getAccentColor(project.id)
+        {/* Interactive Project Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+          {projects.map((project, index) => {
+            const accent = getAccent(project.id)
+            const isEven = index % 2 === 0
             
             return (
-              <div 
+              <div
                 key={project.id}
-                className="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-700 transform hover:-translate-y-2"
+                className={`group relative cursor-pointer transition-all duration-500 transform hover:scale-105 ${
+                  isEven ? 'hover:-rotate-2' : 'hover:rotate-2'
+                }`}
+                onMouseEnter={() => setHoveredId(project.id)}
+                onMouseLeave={() => setHoveredId(null)}
+                onClick={() => setSelectedProject(project)}
               >
-                {/* Project Number Badge */}
+                {/* Project Thumbnail */}
                 <div 
-                  className="absolute -right-3 -top-3 w-20 h-20 rounded-full flex items-center justify-center text-3xl font-black text-white opacity-80 group-hover:opacity-100 transition-all duration-500 z-10"
-                  style={{ backgroundColor: accentColor }}
+                  className="relative h-48 rounded-2xl overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-300"
+                  style={{ 
+                    boxShadow: hoveredId === project.id ? `0 20px 40px ${accent}30` : undefined 
+                  }}
                 >
-                  {String(project.id).padStart(2, '0')}
-                </div>
-
-                {/* Project Image */}
-                <div className="relative h-64 overflow-hidden">
                   <Image
                     src={project.imageUrl}
                     alt={project.title}
-                        fill
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div 
-                    className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-500"
-                  ></div>
                   
-                  {/* Overlay Content */}
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {project.tags.map(tag => (
-                        <span 
-                          key={tag}
-                          className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/20"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                  {/* Gradient overlay */}
+                  <div 
+                    className="absolute inset-0 opacity-0 group-hover:opacity-90 transition-opacity duration-300"
+                    style={{ 
+                      background: `linear-gradient(135deg, ${accent}80, ${accent}40)` 
+                    }}
+                  />
+                  
+                  {/* Hover content */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                    <div className="text-center text-white p-4">
+                      <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-2 backdrop-blur-sm">
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <p className="text-sm font-semibold">View Details</p>
                     </div>
                   </div>
                 </div>
-                
-                {/* Project Content */}
-                <div className="p-6">
-                  <h3 
-                    className="text-2xl font-bold mb-3 group-hover:text-opacity-80 transition-colors duration-300"
-                    style={{ color: accentColor }}
-                  >
+
+                {/* Project Info */}
+                <div className="mt-4 px-2">
+                  <h3 className="font-bold text-lg text-slate-800 mb-1 group-hover:text-slate-900 transition-colors">
                     {project.title}
                   </h3>
-                  
-                  <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                    {project.description}
-                  </p>
-                  
-                  {/* Action Buttons */}
-                  <div className="flex space-x-3">
-                    {project.liveUrl && (
-                      <a 
-                        href={project.liveUrl}
-                        className="flex-1 px-4 py-2.5 rounded-lg font-semibold text-white text-center transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-sm"
-                        style={{
-                          backgroundColor: accentColor,
-                          boxShadow: `0 4px 14px ${accentColor}40`
-                        }}
+                  <div className="flex flex-wrap gap-1">
+                    {project.tags.slice(0, 2).map(tag => (
+                      <span
+                        key={tag}
+                        className="text-xs px-2 py-1 rounded-full bg-slate-100 text-slate-600 font-medium"
                       >
-                        Live Demo
-                      </a>
-                    )}
-                    {project.githubUrl && (
-                      <a 
-                        href={project.githubUrl}
-                        className="flex-1 px-4 py-2.5 border-2 rounded-lg font-semibold text-center transition-all duration-300 hover:bg-slate-50 text-sm"
-                        style={{
-                          borderColor: accentColor,
-                          color: accentColor
-                        }}
-                      >
-                        Code
-                      </a>
+                        {tag}
+                      </span>
+                    ))}
+                    {project.tags.length > 2 && (
+                      <span className="text-xs px-2 py-1 rounded-full bg-slate-100 text-slate-600 font-medium">
+                        +{project.tags.length - 2}
+                      </span>
                     )}
                   </div>
                 </div>
-
-                {/* Hover Gradient Effect */}
-                <div 
-                  className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none rounded-2xl"
-                  style={{
-                    background: `linear-gradient(135deg, ${accentColor}20, transparent)`
-                  }}
-                ></div>
               </div>
             )
           })}
         </div>
 
-        {/* View All Button */}
-        <div className="text-center mt-16">
-          <button className="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-slate-900 to-slate-700 text-white font-semibold rounded-full overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-105">
-            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>
-            
-            <span className="relative z-10 mr-2">View All Projects</span>
-            
-            <svg 
-              className="relative z-10 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-            
-            {/* Ripple Effect */}
-            <div className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 group-hover:animate-ping"></div>
-          </button>
-        </div>
+        {/* Project Detail Modal */}
+        {selectedProject && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
+            <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transform animate-in fade-in zoom-in duration-300">
+              <div className="relative">
+                {/* Close button */}
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="absolute top-4 right-4 z-10 w-10 h-10 bg-white bg-opacity-90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-opacity-100 transition-all duration-200 shadow-lg"
+                >
+                  <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+
+                {/* Project image */}
+                <div className="relative h-80 rounded-t-3xl overflow-hidden">
+                  <Image
+                    src={selectedProject.imageUrl}
+                    alt={selectedProject.title}
+                    fill
+                    className="object-cover"
+                  />
+                  <div 
+                    className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"
+                  />
+                </div>
+
+                {/* Project details */}
+                <div className="p-8">
+                  <div className="flex items-start justify-between mb-6">
+                    <div>
+                      <h3 className="text-3xl font-bold text-slate-900 mb-2">{selectedProject.title}</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedProject.tags.map(tag => (
+                          <span
+                            key={tag}
+                            className="text-sm px-3 py-1 rounded-full text-white font-medium"
+                            style={{ backgroundColor: getAccent(selectedProject.id) }}
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className="text-slate-600 text-lg leading-relaxed mb-8">
+                    {selectedProject.description}
+                  </p>
+
+                  {/* Action buttons */}
+                  <div className="flex gap-4">
+                    {selectedProject.liveUrl && (
+                      <a
+                        href={selectedProject.liveUrl}
+                        className="px-6 py-3 rounded-full text-white font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105"
+                        style={{ backgroundColor: getAccent(selectedProject.id) }}
+                      >
+                        View Live
+                      </a>
+                    )}
+                    {selectedProject.githubUrl && (
+                      <a
+                        href={selectedProject.githubUrl}
+                        className="px-6 py-3 rounded-full border-2 text-slate-700 font-semibold hover:shadow-lg transition-all duration-200 transform hover:scale-105"
+                        style={{ borderColor: getAccent(selectedProject.id) }}
+                      >
+                        View Code
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )
