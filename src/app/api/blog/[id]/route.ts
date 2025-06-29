@@ -4,11 +4,11 @@ import BlogPostModel from '@/model/BlogPost';
 
 export async function GET(
   request: NextRequest,
-  context: { params: Record<string, string> }
+  { params }: any // or omit type and let it infer
 ) {
   try {
     await dbConnect();
-    const blog = await BlogPostModel.findById(context.params.id);
+    const blog = await BlogPostModel.findById(params.id);
 
     if (!blog) {
       return NextResponse.json({ success: false, message: "Blog not found" }, { status: 404 });
