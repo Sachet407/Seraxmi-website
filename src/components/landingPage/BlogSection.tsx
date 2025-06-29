@@ -64,8 +64,12 @@ const blogPosts = [
   }
 ];
 
-const CategoryBadge = ({ category }) => {
-  const colors = {
+type CategoryBadgeProps = {
+  category: string;
+};
+
+const CategoryBadge: React.FC<CategoryBadgeProps> = ({ category }) => {
+  const colors: Record<string, string> = {
     'Frontend': 'bg-blue-100 text-blue-700 border-blue-200',
     'Design': 'bg-purple-100 text-purple-700 border-purple-200',
     'AI/ML': 'bg-green-100 text-green-700 border-green-200',
