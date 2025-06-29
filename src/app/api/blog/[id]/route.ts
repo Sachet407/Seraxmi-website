@@ -20,7 +20,7 @@ export async function GET(
     
     return NextResponse.json({ success: true, data: blog });
   } catch (error) {
-      console.error("Error fetching blog:", error);
+    console.error("Error fetching blog:", error);
     return NextResponse.json(
       { success: false, message: "Error fetching blog" },
       { status: 500 }
@@ -30,7 +30,7 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { [key: string]: string | string[] } }
 ) {
   try {
     await dbConnect();
@@ -55,7 +55,7 @@ export async function PUT(
       message: "BlogPostModel updated successfully"
     });
   } catch (error) {
-      console.error("Error fetching blog:", error);
+    console.error("Error updating blog:", error);
     return NextResponse.json(
       { success: false, message: "Error updating blog" },
       { status: 500 }
@@ -65,12 +65,12 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { [key: string]: string | string[] } }
 ) {
   try {
     await dbConnect();
     
-    const deletedBlog = await BlogPostModel.findByIdAndDelete(params.id);
+    const deletedBlog = await BlogPostModel.findByIdAndDelete(params.id as string);
     
     if (!deletedBlog) {
       return NextResponse.json(
