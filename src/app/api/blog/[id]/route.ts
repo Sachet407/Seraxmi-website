@@ -2,9 +2,15 @@ import dbConnect from "@/lib/dbConnect";
 import BlogPostModel from '@/model/BlogPost';
 import { NextResponse } from "next/server";
 
+interface RouteParams {
+  params: {
+    id: string;
+  };
+}
+
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: RouteParams
 ) {
   try {
     await dbConnect();
@@ -30,7 +36,7 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { [key: string]: string | string[] } }
+  { params }: RouteParams
 ) {
   try {
     await dbConnect();
@@ -52,7 +58,7 @@ export async function PUT(
     return NextResponse.json({ 
       success: true, 
       data: updatedBlog,
-      message: "BlogPostModel updated successfully"
+      message: "Blog updated successfully"
     });
   } catch (error) {
     console.error("Error updating blog:", error);
@@ -65,12 +71,12 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { [key: string]: string | string[] } }
+  { params }: RouteParams
 ) {
   try {
     await dbConnect();
     
-    const deletedBlog = await BlogPostModel.findByIdAndDelete(params.id as string);
+    const deletedBlog = await BlogPostModel.findByIdAndDelete(params.id);
     
     if (!deletedBlog) {
       return NextResponse.json(
@@ -81,7 +87,7 @@ export async function DELETE(
     
     return NextResponse.json({ 
       success: true, 
-      message: "BlogPostModel deleted successfully" 
+      message: "Blog deleted successfully" 
     });
   } catch (error) {
     console.error("Error deleting blog:", error);
