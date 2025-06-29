@@ -109,8 +109,6 @@ export default function CreateProjectPage() {
       });
 
       if (!response.ok) throw new Error('Failed to create project');
-
-      const data = await response.json();
       // router.push(`/projects/${data.data._id}`);
     } catch (error) {
       console.error('Error creating project:', error);

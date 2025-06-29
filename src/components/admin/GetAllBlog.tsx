@@ -18,6 +18,20 @@ interface Blog {
   content: string;
 }
 
+interface ApiBlog {
+  _id: string;
+  title?: string;
+  excerpt?: string;
+  author?: string;
+  publishDate?: string;
+  readTime?: string;
+  category?: string;
+  imageUrl?: string;
+  tags?: string[];
+  content?: string;
+  success?: boolean;
+}
+
 const BlogListPage = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
@@ -28,7 +42,6 @@ const BlogListPage = () => {
 
   const categories = ['All', 'Design', 'Development', 'Product', 'Case Study', 'Tutorial'];
   
-  // Safely get all unique tags
   const allTags = Array.isArray(blogs) 
     ? Array.from(new Set(blogs.flatMap(blog => blog?.tags || [])))
     : [];
@@ -37,18 +50,19 @@ const BlogListPage = () => {
     const fetchBlogs = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/api/blog',{
+        const response = await fetch('/api/blog', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
           }
         });
-        if (!response.ok) throw new Error('Failed to fetch blogs');
-        const result = await response.json();
         
-        // Transform the data to match our frontend expectations
-        const blogsData = result.success 
-          ? result.data.map((blog: any) => ({
+        if (!response.ok) throw new Error('Failed to fetch blogs');
+        
+        const result: { success: boolean; data: ApiBlog[] } = await response.json();
+        
+        const blogsData: Blog[] = result.success 
+          ? result.data.map((blog: ApiBlog) => ({
               _id: blog._id,
               title: blog.title || 'Untitled',
               excerpt: blog.excerpt || '',
@@ -211,7 +225,7 @@ const BlogListPage = () => {
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    unoptimized={!blog.imageUrl.startsWith('http')} // Only optimize remote images
+                    unoptimized={!blog.imageUrl.startsWith('http')}
                   />
                   <div className="absolute top-2 right-2 md:top-4 md:right-4 bg-teal-600 text-white px-2 py-0.5 md:px-3 md:py-1 rounded-full text-xs font-medium">
                     {blog.category}

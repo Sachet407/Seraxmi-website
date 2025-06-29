@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import dbConnect from '@/lib/dbConnect';
 import UserModel from '@/model/User';
 
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -41,8 +42,11 @@ export const authOptions: NextAuthOptions = {
           }
           
             throw new Error('Incorrect password');
-        } catch (err: any) {
-          throw new Error(err);
+        } catch (err: unknown) {
+          if (err instanceof Error) {
+            throw new Error(err.message);
+          }
+          throw new Error('Authentication failed');
         }
       },
     }),
