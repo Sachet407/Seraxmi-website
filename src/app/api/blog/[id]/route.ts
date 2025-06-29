@@ -3,7 +3,7 @@ import BlogPostModel from '@/model/BlogPost';
 import { NextResponse } from "next/server";
 
 export async function GET(
-  { params }: { params: { id: string } }
+   { params }: { params: { [key: string]: string | string[] } }
 ) {
   try {
     await dbConnect();
