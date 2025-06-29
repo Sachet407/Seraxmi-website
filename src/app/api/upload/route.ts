@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import cloudinary from '@/lib/cloudinary';
+import { UploadApiResponse } from 'cloudinary';
 
 export async function POST(request: Request) {
   try {
@@ -15,23 +16,31 @@ export async function POST(request: Request) {
 
     const buffer = Buffer.from(await file.arrayBuffer());
 
-    const result = await new Promise<any>((resolve, reject) => {
+    const result = await new Promise<UploadApiResponse>((resolve, reject) => {
       cloudinary.uploader
         .upload_stream(
           {
             folder: 'seraxmi-images',
-            format: 'webp',  // Auto-convert to WebP
-            quality: 'auto'  // Optimize quality
+            format: 'webp',
+            quality: 'auto'
           },
-          (error, result) => {
-            if (error) reject(error);
+          (error: unknown, result: UploadApiResponse | undefined) => {
+            if (error) {
+              if (error instanceof Error) {
+                return reject(error);
+              }
+              return reject(new Error('Unknown upload error'));
+            }
+            if (!result) {
+              return reject(new Error('No result returned from Cloudinary'));
+            }
             resolve(result);
           }
         )
         .end(buffer);
     });
-    console.log('Upload result:', (result as any).secure_url);
-    console.log('Upload result:', result);
+
+    console.log('Upload result:', result.secure_url);
     return NextResponse.json(result);
   } catch (error) {
     console.error('Upload error:', error);

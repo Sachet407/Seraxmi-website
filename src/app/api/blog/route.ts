@@ -53,6 +53,7 @@ export async function GET() {
     const posts = await BlogPostModel.find().sort({ publishDate: -1 });
     return NextResponse.json({ success: true, data: posts });
   } catch (error) {
+      console.error("Error fetching blog:", error);
     return NextResponse.json(
       { success: false, error: 'Server error' },
       { status: 500 }
