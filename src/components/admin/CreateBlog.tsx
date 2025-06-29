@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { Upload, X, Save, FileText, Clock, Tag, User, Calendar, Image as ImageIcon } from 'lucide-react';
+import { Upload, X, Save,  Clock } from 'lucide-react';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 

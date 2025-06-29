@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Mail, Clock, Settings, Wrench, X } from "lucide-react";
+import { Mail, Clock, Settings, Wrench} from "lucide-react";
 import ServicesSection from "@/components/landingPage/ServicesSection";
 import TechStackShowcase from "@/components/landingPage/TechStackShowcase";
 import ShowProjects from "@/components/landingPage/ShowProjects";
@@ -92,7 +92,7 @@ const MaintenancePage = () => {
               Under Maintenance
             </h1>
             <p className="text-gray-600 text-center text-lg">
-              We're working hard to improve your experience
+              We&apos;re working hard to improve your experience
             </p>
           </div>
 
@@ -101,7 +101,7 @@ const MaintenancePage = () => {
             {/* Description */}
             <div className="text-center mb-8">
               <p className="text-gray-700 leading-relaxed">
-                Our website is currently undergoing scheduled maintenance to bring you better features and improved performance. We'll be back online soon!
+                Our website is currently undergoing scheduled maintenance to bring you better features and improved performance. We&apos;ll be back online soon!
               </p>
             </div>
 
@@ -127,7 +127,7 @@ const MaintenancePage = () => {
                 Need Immediate Assistance?
               </h3>
               <p className="text-gray-600 text-center mb-4">
-                For urgent inquiries or support, please don't hesitate to contact us:
+                For urgent inquiries or support, please don&apos;t hesitate to contact us:
               </p>
               <div className="text-center">
                 <a 
