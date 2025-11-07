@@ -9,7 +9,7 @@ const blogPosts = [
     imageUrl: 'https://picsum.photos/600/400?random=21',
     category: 'Frontend',
     date: 'Apr 21, 2025',
-    readTime: '5 min',
+
     featured: true
   },
   {
@@ -19,17 +19,17 @@ const blogPosts = [
     imageUrl: 'https://picsum.photos/600/400?random=22',
     category: 'Design',
     date: 'May 10, 2025',
-    readTime: '3 min',
+
     featured: false
   },
   {
     id: 3,
     title: 'AI Workflows in Modern Development',
     excerpt: 'Incorporating GPT, Copilot, and MLOps into real products.',
-    imageUrl: 'https://picsum.photos/600/400?random=23',
+    imageUrl: 'https://picsum.photos/60/400?random=23',
     category: 'AI/ML',
     date: 'June 01, 2025',
-    readTime: '7 min',
+
     featured: false
   },
   {
@@ -39,7 +39,7 @@ const blogPosts = [
     imageUrl: 'https://picsum.photos/600/400?random=24',
     category: 'Performance',
     date: 'June 05, 2025',
-    readTime: '6 min',
+
     featured: false
   },
   {
@@ -161,10 +161,10 @@ const BlogSection = () => {
                 <p className="text-sm text-gray-600 line-clamp-2 hidden md:block">
                   {post.excerpt}
                 </p>
-                <div className="flex items-center gap-1 text-xs text-gray-500">
+                {/* <div className="flex items-center gap-1 text-xs text-gray-500">
                   <Clock size={10} />
                   <span>{post.readTime}</span>
-                </div>
+                </div> */}
               </div>
             </article>
           ))}

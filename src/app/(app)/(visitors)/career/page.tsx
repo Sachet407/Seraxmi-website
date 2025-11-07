@@ -159,7 +159,7 @@ const CareersPage = () => {
 
     return (
       <div className="space-y-2">
-        <label htmlFor="resume" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+        <label htmlFor="resume" className="block text-sm font-medium text-slate-700  mb-1">
           Resume/CV <span className="text-red-500">*</span>
         </label>
         
@@ -179,8 +179,8 @@ const CareersPage = () => {
           onClick={handleBoxClick}
           className={`border-2 border-dashed rounded-lg p-6 cursor-pointer transition-all duration-300 ${
             file 
-              ? 'border-[#188f8b] bg-[#188f8b]/5 dark:bg-[#188f8b]/10' 
-              : 'border-slate-300 dark:border-slate-700 hover:border-[#188f8b]'
+              ? 'border-[#188f8b] bg-[#188f8b]/5 ' 
+              : 'border-slate-300  hover:border-[#188f8b]'
           }`}
         >
           {!file ? (
@@ -189,10 +189,10 @@ const CareersPage = () => {
                 <Briefcase className="w-6 h-6 text-[#188f8b]" />
               </div>
               <div>
-                <p className="text-sm font-medium text-slate-900 dark:text-white">
+                <p className="text-sm font-medium text-slate-900 ">
                   Click to upload or drag and drop
                 </p>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                <p className="text-xs text-slate-500  mt-1">
                   PDF, DOC, or DOCX (Max. 5MB)
                 </p>
               </div>
@@ -208,10 +208,10 @@ const CareersPage = () => {
                   {getFileIcon()}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-medium text-slate-900 dark:text-white truncate">
+                  <p className="text-sm font-medium text-slate-900  truncate">
                     {file.name}
                   </p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  <p className="text-xs text-slate-500  mt-1">
                     {getFileType()} • {(file.size / 1024 / 1024).toFixed(2)} MB
                   </p>
                   {isUploading && (
@@ -223,7 +223,7 @@ const CareersPage = () => {
                   {uploadSuccess && (
                     <div className="flex items-center gap-1 mt-2">
                       <CheckCircle className="w-3 h-3 text-green-500" />
-                      <span className="text-xs text-green-600 dark:text-green-400">Upload successful</span>
+                      <span className="text-xs text-green-600 ">Upload successful</span>
                     </div>
                   )}
                 </div>
@@ -250,7 +250,7 @@ const CareersPage = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-slate-50 to-blue-50/30 dark:from-slate-900 dark:to-blue-950/30">
+    <div className="bg-gradient-to-b from-slate-50 to-blue-50/30 ">
       {/* Hero Section */}
       <section className="relative py-20 md:py-28 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -260,15 +260,15 @@ const CareersPage = () => {
             transition={{ duration: 0.5 }}
             className="text-center mb-16"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 border border-blue-200 dark:border-blue-800 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50  border border-blue-200  rounded-full text-sm font-medium shadow-lg backdrop-blur-sm mb-6">
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Join Our Team
               </span>
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent mb-4">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700  bg-clip-text text-transparent mb-4">
               Build the Future With Us
             </h1>
-            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-slate-600  max-w-3xl mx-auto">
               We&apos;re looking for passionate individuals to help us create innovative solutions that make a difference.
             </p>
           </motion.div>
@@ -276,7 +276,7 @@ const CareersPage = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-16 bg-gradient-to-r from-[#188f8b]/5 to-teal-500/5 dark:from-[#188f8b]/10 dark:to-teal-500/10">
+      <section className="py-16 bg-gradient-to-r from-[#188f8b]/5 to-teal-500/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0 }}
@@ -285,10 +285,10 @@ const CareersPage = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+            <h2 className="text-3xl font-bold text-slate-900  mb-4">
               Our Perks & Benefits
             </h2>
-            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-slate-600  max-w-2xl mx-auto">
               We take care of our team with comprehensive benefits and a supportive work environment.
             </p>
           </motion.div>
@@ -302,17 +302,17 @@ const CareersPage = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="bg-white dark:bg-slate-800/50 p-8 rounded-xl shadow-lg border border-slate-200 dark:border-slate-800 hover:border-[#188f8b] transition-all duration-300"
+                className="bg-white  p-8 rounded-xl shadow-lg border border-slate-200  hover:border-[#188f8b] transition-all duration-300"
               >
                 <div className="flex items-center mb-4">
                   <div className="bg-[#188f8b]/10 p-2 rounded-lg mr-4">
                     {benefit.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                  <h3 className="text-xl font-bold text-slate-900 ">
                     {benefit.title}
                   </h3>
                 </div>
-                <p className="text-slate-600 dark:text-slate-400">
+                <p className="text-slate-600 ">
                   {benefit.description}
                 </p>
               </motion.div>
@@ -331,10 +331,10 @@ const CareersPage = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+            <h2 className="text-3xl font-bold text-slate-900  mb-4">
               Current Openings
             </h2>
-            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-slate-600  max-w-2xl mx-auto">
               Explore our available positions and find where you fit best.
             </p>
           </motion.div>
@@ -347,22 +347,22 @@ const CareersPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white dark:bg-slate-800/50 rounded-xl shadow-lg border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                className="bg-white  rounded-xl shadow-lg border border-slate-200  overflow-hidden hover:shadow-xl transition-shadow duration-300"
               >
                 <div className="p-6 md:p-8">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
-                      <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                      <h3 className="text-xl font-bold text-slate-900">
                         {job.title}
                       </h3>
                       <div className="flex flex-wrap gap-2 mt-2">
                         <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#188f8b]/10 text-[#188f8b]">
                           {job.type}
                         </span>
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100/50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100/50 text-blue-800 ">
                           {job.location}
                         </span>
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100/50 dark:bg-purple-900/20 text-purple-800 dark:text-purple-200">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100/50  text-purple-800 ">
                           {job.department}
                         </span>
                       </div>
@@ -371,18 +371,18 @@ const CareersPage = () => {
                       Apply Now
                     </button>
                   </div>
-                  <p className="text-slate-600 dark:text-slate-400 mt-4">
+                  <p className="text-slate-600  mt-4">
                     {job.description}
                   </p>
                   <div className="mt-4">
-                    <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                    <h4 className="text-sm font-semibold text-slate-700  mb-2">
                       Key Skills:
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {job.skills.map((skill, skillIndex) => (
                         <span
                           key={skillIndex}
-                          className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-200"
+                          className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-100  text-slate-800 "
                         >
                           {skill}
                         </span>
@@ -397,20 +397,20 @@ const CareersPage = () => {
       </section>
 
       {/* Application Form Section */}
-      <section className="py-20 bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900">
+      <section className="py-20 bg-gradient-to-b from-white to-slate-50 ">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="bg-white dark:bg-slate-800/50 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 p-8 md:p-10"
+            className="bg-white  rounded-2xl shadow-xl border border-slate-200  p-8 md:p-10"
           >
             <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+              <h2 className="text-3xl font-bold text-slate-900  mb-2">
                 Apply Now
               </h2>
-              <p className="text-slate-600 dark:text-slate-400">
+              <p className="text-slate-600 ">
                 Ready to join our team? Fill out the form below and we&apos;ll get back to you soon.
               </p>
             </div>
@@ -418,7 +418,7 @@ const CareersPage = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label htmlFor="firstName" className="block text-sm font-medium text-slate-700  mb-1">
                     First Name <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -427,12 +427,12 @@ const CareersPage = () => {
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white dark:bg-slate-900"
+                    className="w-full px-4 py-3 rounded-lg border border-slate-300  focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white "
                     required
                   />
                 </div>
                 <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label htmlFor="lastName" className="block text-sm font-medium text-slate-700  mb-1">
                     Last Name <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -441,14 +441,14 @@ const CareersPage = () => {
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white dark:bg-slate-900"
+                    className="w-full px-4 py-3 rounded-lg border border-slate-300  focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white "
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                <label htmlFor="email" className="block text-sm font-medium text-slate-700  mb-1">
                   Email Address <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -457,13 +457,13 @@ const CareersPage = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white dark:bg-slate-900"
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300  focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white "
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="position" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                <label htmlFor="position" className="block text-sm font-medium text-slate-700  mb-1">
                   Position Applying For <span className="text-red-500">*</span>
                 </label>
                 <select
@@ -471,7 +471,7 @@ const CareersPage = () => {
                   name="position"
                   value={formData.position}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white dark:bg-slate-900"
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300  focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white"
                   required
                 >
                   <option value="">Select a position</option>
@@ -487,7 +487,7 @@ const CareersPage = () => {
               <FileUploadSection />
 
               <div>
-                <label htmlFor="coverLetter" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                <label htmlFor="coverLetter" className="block text-sm font-medium text-slate-700 mb-1">
                   Cover Letter
                 </label>
                 <textarea
@@ -496,7 +496,7 @@ const CareersPage = () => {
                   rows={5}
                   value={formData.coverLetter}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white dark:bg-slate-900"
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white "
                   placeholder="Tell us why you'd be a great fit..."
                 ></textarea>
               </div>
@@ -508,10 +508,10 @@ const CareersPage = () => {
                   name="agree"
                   checked={formData.agree as boolean}
                   onChange={handleInputChange}
-                  className="h-4 w-4 mt-1 text-[#188f8b] focus:ring-[#188f8b] border-slate-300 dark:border-slate-700 rounded"
+                  className="h-4 w-4 mt-1 text-[#188f8b] focus:ring-[#188f8b] border-slate-300 rounded"
                   required
                 />
-                <label htmlFor="agree" className="ml-2 block text-sm text-slate-700 dark:text-slate-300">
+                <label htmlFor="agree" className="ml-2 block text-sm text-slate-700 ">
                   I agree to the processing of my personal data <span className="text-red-500">*</span>
                 </label>
               </div>

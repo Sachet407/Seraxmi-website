@@ -56,7 +56,7 @@ const ContactUs = () => {
   ];
 
   return (
-    <section className="relative py-20 md:py-28 bg-gradient-to-b from-slate-50 to-blue-50/30 dark:from-slate-900 dark:to-blue-950/30 overflow-hidden">
+    <section className="relative py-20 md:py-28 bg-gradient-to-b from-slate-50 to-blue-50/30  overflow-hidden">
       {/* Background elements similar to About page */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl"></div>
@@ -72,15 +72,15 @@ const ContactUs = () => {
           viewport={{ once: true }}
           className="text-center mb-16 md:mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 border border-blue-200 dark:border-blue-800 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50  border border-blue-200  rounded-full text-sm font-medium shadow-lg backdrop-blur-sm mb-6">
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Get In Touch
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700  bg-clip-text text-transparent mb-4">
             Let&apos;s Build Something Great
           </h2>
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">
             Have a project in mind or want to learn more about our services? We&apos;d love to hear from you.
           </p>
         </motion.div>
@@ -98,18 +98,18 @@ const ContactUs = () => {
               <motion.div
                 key={index}
                 whileHover={{ x: 5 }}
-                className="flex items-start gap-4 bg-white dark:bg-slate-800/50 p-6 rounded-xl shadow-lg border border-slate-200 dark:border-slate-800"
+                className="flex items-start gap-4 bg-white p-6 rounded-xl shadow-lg border border-slate-200"
               >
                 <div className="bg-[#188f8b]/10 p-3 rounded-full">
                   {method.icon}
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-1">
+                  <h3 className="text-lg font-semibold text-slate-900 mb-1">
                     {method.title}
                   </h3>
                   <a
                     href={method.link}
-                    className="text-slate-600 dark:text-slate-400 hover:text-[#188f8b] transition-colors"
+                    className="text-slate-600 hover:text-[#188f8b] transition-colors"
                   >
                     {method.value}
                   </a>
@@ -118,11 +118,11 @@ const ContactUs = () => {
             ))}
 
             {/* Office hours */}
-            <div className="bg-white dark:bg-slate-800/50 p-6 rounded-xl shadow-lg border border-slate-200 dark:border-slate-800">
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+            <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-200 ">
+              <h3 className="text-lg font-semibold text-slate-900  mb-4">
                 Office Hours
               </h3>
-              <div className="space-y-2 text-slate-600 dark:text-slate-400">
+              <div className="space-y-2 text-slate-600">
                 <p className="flex justify-between">
                   <span>Monday - Friday</span>
                   <span>9:00 AM - 6:00 PM</span>
@@ -145,9 +145,9 @@ const ContactUs = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="bg-white dark:bg-slate-800/50 p-8 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-800"
+            className="bg-white p-8 rounded-xl shadow-2xl border border-slate-200 "
           >
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+            <h3 className="text-2xl font-bold text-slate-900  mb-6">
               Send Us a Message
             </h3>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -155,7 +155,7 @@ const ContactUs = () => {
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
+                    className="block text-sm font-medium text-slate-700 mb-1"
                   >
                     Full Name
                   </label>
@@ -166,14 +166,14 @@ const ContactUs = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white dark:bg-slate-900"
+                    className="w-full px-4 py-3 rounded-lg border border-slate-300  focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white "
                     placeholder="John Doe"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
+                    className="block text-sm font-medium text-slate-700 mb-1"
                   >
                     Email Address
                   </label>
@@ -184,7 +184,7 @@ const ContactUs = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white dark:bg-slate-900"
+                    className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white "
                     placeholder="you@example.com"
                   />
                 </div>
@@ -192,7 +192,7 @@ const ContactUs = () => {
               <div>
                 <label
                   htmlFor="phone"
-                  className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
+                  className="block text-sm font-medium text-slate-700 mb-1"
                 >
                   Phone Number (Optional)
                 </label>
@@ -202,14 +202,14 @@ const ContactUs = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white dark:bg-slate-900"
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300  focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white"
                   placeholder="+1 (555) 123-4567"
                 />
               </div>
               <div>
                 <label
                   htmlFor="subject"
-                  className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
+                  className="block text-sm font-medium text-slate-700  mb-1"
                 >
                   Subject
                 </label>
@@ -220,14 +220,14 @@ const ContactUs = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white dark:bg-slate-900"
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300  focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white "
                   placeholder="How can we help?"
                 />
               </div>
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
+                  className="block text-sm font-medium text-slate-700  mb-1"
                 >
                   Message
                 </label>
@@ -238,7 +238,7 @@ const ContactUs = () => {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white dark:bg-slate-900"
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300  focus:ring-2 focus:ring-[#188f8b] focus:border-[#188f8b] outline-none transition bg-white "
                   placeholder="Tell us about your project..."
                 ></textarea>
               </div>

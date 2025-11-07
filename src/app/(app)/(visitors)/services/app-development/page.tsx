@@ -11,42 +11,42 @@ const AppDevelopmentPage = () => {
       description: "Premium native apps for iPhone and iPad",
       icon: <Smartphone className="w-8 h-8 text-[#188f8b]" />,
       tech: ["Swift", "SwiftUI", "ARKit"],
-      bg: "bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/20 dark:to-blue-950/10"
+      bg: "bg-gradient-to-br from-blue-100 to-blue-50"
     },
     {
       title: "Android Apps",
       description: "High-performance Android applications",
       icon: <SmartphoneCharging className="w-8 h-8 text-[#188f8b]" />,
       tech: ["Kotlin", "Jetpack Compose", "Material 3"],
-      bg: "bg-gradient-to-br from-green-100 to-green-50 dark:from-green-900/20 dark:to-green-950/10"
+      bg: "bg-gradient-to-br from-green-100 to-green-50"
     },
     {
       title: "Cross-Platform",
       description: "Single codebase for all platforms",
       icon: <Globe className="w-8 h-8 text-[#188f8b]" />,
       tech: ["Flutter", "React Native", "KMM"],
-      bg: "bg-gradient-to-br from-purple-100 to-purple-50 dark:from-purple-900/20 dark:to-purple-950/10"
+      bg: "bg-gradient-to-br from-purple-100 to-purple-50"
     },
     {
       title: "Backend Integration",
       description: "Powerful server-side functionality",
       icon: <Database className="w-8 h-8 text-[#188f8b]" />,
       tech: ["Node.js", "Firebase", "GraphQL"],
-      bg: "bg-gradient-to-br from-amber-100 to-amber-50 dark:from-amber-900/20 dark:to-amber-950/10"
+      bg: "bg-gradient-to-br from-amber-100 to-amber-50"
     },
     {
       title: "UI/UX Design",
       description: "Beautiful, intuitive interfaces",
       icon: <Code className="w-8 h-8 text-[#188f8b]" />,
       tech: ["Figma", "Lottie", "Micro-interactions"],
-      bg: "bg-gradient-to-br from-pink-100 to-pink-50 dark:from-pink-900/20 dark:to-pink-950/10"
+      bg: "bg-gradient-to-br from-pink-100 to-pink-50"
     },
     {
       title: "App Security",
       description: "Enterprise-grade protection",
       icon: <Shield className="w-8 h-8 text-[#188f8b]" />,
       tech: ["Biometrics", "Encryption", "OWASP"],
-      bg: "bg-gradient-to-br from-red-100 to-red-50 dark:from-red-900/20 dark:to-red-950/10"
+      bg: "bg-gradient-to-br from-red-100 to-red-50"
     }
   ];
 
@@ -86,7 +86,7 @@ const AppDevelopmentPage = () => {
   return (
     <div className="relative overflow-hidden">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-slate-900 dark:via-blue-950/30 dark:to-purple-950/30">
+      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl"></div>
@@ -94,16 +94,16 @@ const AppDevelopmentPage = () => {
 
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 border border-blue-200 dark:border-blue-800 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm mb-6">
-              <Zap className="w-4 h-4 animate-pulse text-blue-600 dark:text-blue-400" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm mb-6">
+              <Zap className="w-4 h-4 animate-pulse text-blue-600" />
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Premium Mobile Solutions
               </span>
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent mb-4">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent mb-4">
               App Development
             </h1>
-            <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto">
               Crafting high-performance mobile experiences that users love
             </p>
           </div>
@@ -138,13 +138,13 @@ const AppDevelopmentPage = () => {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 md:py-28 bg-white dark:bg-slate-900">
+      <section className="py-20 md:py-28 bg-white ">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               Comprehensive App Development
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               End-to-end solutions for every stage of your mobile journey
             </p>
           </div>
@@ -157,29 +157,29 @@ const AppDevelopmentPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className={`group rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ${service.bg} border border-slate-200 dark:border-slate-700`}
+                className={`group rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ${service.bg} border border-slate-200`}
               >
                 <div className="p-8">
                   <div className="flex items-center mb-6">
                     <div className="bg-[#188f8b]/10 p-3 rounded-xl mr-4">
                       {service.icon}
                     </div>
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                    <h3 className="text-xl font-bold text-slate-900 ">
                       {service.title}
                     </h3>
                   </div>
-                  <p className="text-slate-600 dark:text-slate-400 mb-6">
+                  <p className="text-slate-600  mb-6">
                     {service.description}
                   </p>
                   <div className="mt-6">
-                    <h4 className="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-3">
+                    <h4 className="text-sm font-semibold text-slate-500  mb-3">
                       Technologies:
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {service.tech.map((tech, i) => (
                         <span 
                           key={i}
-                          className="text-xs font-medium px-3 py-1 bg-white dark:bg-slate-800 rounded-full text-slate-700 dark:text-slate-300 shadow-sm"
+                          className="text-xs font-medium px-3 py-1 bg-white  rounded-full text-slate-700  shadow-sm"
                         >
                           {tech}
                         </span>
@@ -200,13 +200,13 @@ const AppDevelopmentPage = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-20 md:py-28 bg-gradient-to-br from-slate-50 to-blue-50/30 dark:from-slate-900 dark:via-blue-950/30 dark:to-purple-950/30">
+      <section className="py-20 md:py-28 bg-gradient-to-br from-slate-50 to-blue-50/30">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900  mb-4">
               Our App Development Process
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-600  max-w-2xl mx-auto">
               A proven methodology for delivering exceptional mobile experiences
             </p>
           </div>
@@ -229,16 +229,16 @@ const AppDevelopmentPage = () => {
                       <div className="bg-[#188f8b] text-white w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl mr-6">
                         {step.step}
                       </div>
-                      <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                      <h3 className="text-xl font-bold text-slate-900 ">
                         {step.title}
                       </h3>
                     </div>
-                    <p className="text-lg text-slate-600 dark:text-slate-400 pl-20 lg:pl-0">
+                    <p className="text-lg text-slate-600  pl-20 lg:pl-0">
                       {step.description}
                     </p>
                   </div>
                   <div className={`lg:w-1/2 ${index % 2 === 0 ? 'lg:pl-12' : 'lg:pr-12'} mt-8 lg:mt-0`}>
-                    <div className="relative h-64 md:h-80 lg:h-96 bg-slate-200 dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg flex items-center justify-center">
+                    <div className="relative h-64 md:h-80 lg:h-96 bg-slate-200  rounded-2xl overflow-hidden shadow-lg flex items-center justify-center">
                       <svg 
                         className="w-32 h-32 text-[#188f8b] opacity-20" 
                         fill="none" 

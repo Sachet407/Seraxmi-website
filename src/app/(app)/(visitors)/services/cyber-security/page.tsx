@@ -20,42 +20,42 @@ const CyberSecurityPage = () => {
       description: "Comprehensive vulnerability analysis and penetration testing",
       icon: <Shield className="w-8 h-8 text-[#188f8b]" />,
       features: ["Penetration Testing", "Risk Analysis", "Security Audits"],
-      bg: "bg-gradient-to-br from-blue-100/50 to-blue-50 dark:from-blue-900/10 dark:to-blue-950/5"
+      bg: "bg-gradient-to-br from-blue-100/50 to-blue-50"
     },
     {
       title: "Network Security",
       description: "Protect your infrastructure from intrusions and attacks",
       icon: <Network className="w-8 h-8 text-[#188f8b]" />,
       features: ["Firewall Configuration", "Intrusion Detection", "VPN Solutions"],
-      bg: "bg-gradient-to-br from-purple-100/50 to-purple-50 dark:from-purple-900/10 dark:to-purple-950/5"
+      bg: "bg-gradient-to-br from-purple-100/50 to-purple-50"
     },
     {
       title: "Data Protection",
       description: "Encryption and access control for sensitive information",
       icon: <Lock className="w-8 h-8 text-[#188f8b]" />,
       features: ["End-to-End Encryption", "DLP Solutions", "Data Masking"],
-      bg: "bg-gradient-to-br from-green-100/50 to-green-50 dark:from-green-900/10 dark:to-green-950/5"
+      bg: "bg-gradient-to-br from-green-100/50 to-green-50"
     },
     {
       title: "Identity Management",
       description: "Secure authentication and access control systems",
       icon: <Fingerprint className="w-8 h-8 text-[#188f8b]" />,
       features: ["MFA Solutions", "IAM Systems", "Biometric Auth"],
-      bg: "bg-gradient-to-br from-amber-100/50 to-amber-50 dark:from-amber-900/10 dark:to-amber-950/5"
+      bg: "bg-gradient-to-br from-amber-100/50 to-amber-50"
     },
     {
       title: "Incident Response",
       description: "24/7 monitoring and rapid threat mitigation",
       icon: <EyeOff className="w-8 h-8 text-[#188f8b]" />,
       features: ["SIEM Solutions", "Threat Hunting", "Forensics"],
-      bg: "bg-gradient-to-br from-red-100/50 to-red-50 dark:from-red-900/10 dark:to-red-950/5"
+      bg: "bg-gradient-to-br from-red-100/50 to-red-50"
     },
     {
       title: "Cloud Security",
       description: "Enterprise-grade protection for cloud environments",
       icon: <Server className="w-8 h-8 text-[#188f8b]" />,
       features: ["CSPM", "CASB Solutions", "Cloud Firewalls"],
-      bg: "bg-gradient-to-br from-indigo-100/50 to-indigo-50 dark:from-indigo-900/10 dark:to-indigo-950/5"
+      bg: "bg-gradient-to-br from-indigo-100/50 to-indigo-50"
     }
   ];
 
@@ -69,7 +69,7 @@ const CyberSecurityPage = () => {
   return (
     <div className="relative overflow-hidden">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-slate-900 dark:via-blue-950/30 dark:to-purple-950/30">
+      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl"></div>
@@ -78,16 +78,16 @@ const CyberSecurityPage = () => {
 
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 border border-blue-200 dark:border-blue-800 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm mb-6">
-              <Zap className="w-4 h-4 animate-pulse text-blue-600 dark:text-blue-400" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50  border border-blue-200  rounded-full text-sm font-medium shadow-lg backdrop-blur-sm mb-6">
+              <Zap className="w-4 h-4 animate-pulse text-blue-600" />
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Enterprise-Grade Protection
               </span>
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent mb-4">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700  bg-clip-text text-transparent mb-4">
               Cyber Security
             </h1>
-            <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-slate-600  max-w-3xl mx-auto">
               Advanced protection against evolving digital threats
             </p>
           </div>
@@ -102,7 +102,7 @@ const CyberSecurityPage = () => {
             <div className="relative w-64 h-64 md:w-80 md:h-80">
               <div className="absolute inset-0 bg-[#188f8b]/10 rounded-full blur-xl"></div>
               <div className="relative w-full h-full flex items-center justify-center">
-                <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700">
+                <div className="bg-white p-6 rounded-2xl shadow-2xl border border-slate-200">
                   <Shield className="w-16 h-16 md:w-20 md:h-20 text-[#188f8b] animate-pulse" />
                 </div>
                 <div className="absolute -inset-4 border-2 border-[#188f8b]/30 rounded-3xl animate-spin-slow"></div>
@@ -139,13 +139,13 @@ const CyberSecurityPage = () => {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 md:py-28 bg-white dark:bg-slate-900">
+      <section className="py-20 md:py-28 bg-white">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               Comprehensive Security Solutions
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-600  max-w-2xl mx-auto">
               Protecting your digital assets with cutting-edge technologies
             </p>
           </div>
@@ -159,18 +159,18 @@ const CyberSecurityPage = () => {
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className={`group rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ${service.bg} border border-slate-200 dark:border-slate-700`}
+                className={`group rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ${service.bg} border border-slate-200`}
               >
                 <div className="p-8">
                   <div className="flex items-center mb-6">
                     <div className="bg-[#188f8b]/10 p-3 rounded-xl mr-4">
                       {service.icon}
                     </div>
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                    <h3 className="text-xl font-bold text-slate-900 ">
                       {service.title}
                     </h3>
                   </div>
-                  <p className="text-slate-600 dark:text-slate-400 mb-6">
+                  <p className="text-slate-600  mb-6">
                     {service.description}
                   </p>
                   <ul className="space-y-3">
@@ -179,7 +179,7 @@ const CyberSecurityPage = () => {
                         <svg className="w-5 h-5 text-[#188f8b] mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                         </svg>
-                        <span className="text-slate-600 dark:text-slate-400">{feature}</span>
+                        <span className="text-slate-600 ">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -197,7 +197,7 @@ const CyberSecurityPage = () => {
       </section>
 
       {/* Threat Landscape Section */}
-      <section className="py-20 md:py-28 bg-gradient-to-br from-slate-50 to-blue-50/30 dark:from-slate-900 dark:via-blue-950/30 dark:to-purple-950/30">
+      <section className="py-20 md:py-28 bg-gradient-to-br from-slate-50 to-blue-50/30 ">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -205,7 +205,7 @@ const CyberSecurityPage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-700"
+              className="relative h-96 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl border border-slate-200 "
             >
               <div className="absolute inset-0 bg-slate-900 flex items-center justify-center">
                 <div className="relative w-full h-full">
@@ -241,10 +241,10 @@ const CyberSecurityPage = () => {
               viewport={{ once: true }}
               className="space-y-6"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
                 Modern Threats Require Modern Solutions
               </h2>
-              <p className="text-lg text-slate-600 dark:text-slate-400">
+              <p className="text-lg text-slate-600">
                 In today&apos;s digital landscape, cyber threats evolve at an unprecedented pace. Our multi-layered security approach ensures comprehensive protection against:
               </p>
               <ul className="space-y-4">
@@ -260,7 +260,7 @@ const CyberSecurityPage = () => {
                     <svg className="w-5 h-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
-                    <span className="text-slate-600 dark:text-slate-400">{threat}</span>
+                    <span className="text-slate-600">{threat}</span>
                   </li>
                 ))}
               </ul>

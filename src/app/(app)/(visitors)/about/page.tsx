@@ -2,34 +2,10 @@
 import React from "react";
 import { Rocket, Users, Globe, Shield, Code, BarChart2 } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from 'next/image';
 
 const AboutUs = () => {
-  // SVG abstract shapes for creative backgrounds
-  const AbstractShape = () => (
-    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 500 500">
-      <path 
-        d="M0,250 C150,350 350,150 500,250 L500,500 L0,500 Z" 
-        fill="currentColor" 
-        className="text-[#188f8b]/10 dark:text-[#188f8b]/5"
-      />
-    </svg>
-  );
-
-  const CircuitPattern = () => (
-    <svg className="absolute inset-0 w-full h-full opacity-20" preserveAspectRatio="none">
-      <pattern id="circuit" width="40" height="40" patternUnits="userSpaceOnUse">
-        <path 
-          d="M0 20 Q10 10 20 20 T40 20" 
-          stroke="currentColor" 
-          fill="none" 
-          className="text-[#188f8b] dark:text-[#188f8b]/50"
-          strokeWidth="1.5"
-        />
-      </pattern>
-      <rect width="100%" height="100%" fill="url(#circuit)" />
-    </svg>
-  );
-
+  // Stats data
   const stats = [
     { value: "50+", label: "Projects Completed", icon: <Rocket className="w-6 h-6" /> },
     { value: "15+", label: "Countries Served", icon: <Globe className="w-6 h-6" /> },
@@ -40,148 +16,128 @@ const AboutUs = () => {
   const coreValues = [
     {
       title: "Innovation",
-      description: "We push boundaries with cutting-edge technology solutions",
+      description: "Pushing boundaries with cutting-edge technology to create solutions that matter",
       icon: <Code className="w-8 h-8 text-[#188f8b]" />,
     },
     {
       title: "Excellence",
-      description: "Quality is at the heart of everything we deliver",
+      description: "Delivering unparalleled quality in every product and service we provide",
       icon: <BarChart2 className="w-8 h-8 text-[#188f8b]" />,
     },
     {
       title: "Integrity",
-      description: "We build trust through transparency and honesty",
+      description: "Building trust through transparency, honesty, and ethical practices",
       icon: <Shield className="w-8 h-8 text-[#188f8b]" />,
     },
   ];
 
   const team = [
     {
-      name: "Alex Johnson",
+      name: "Sachet Khatiwada",
       role: "CEO & Founder",
-      // Creative placeholder using initials and gradient
-      avatar: (
-        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#188f8b] to-purple-500 text-white text-4xl font-bold">
-          AJ
-        </div>
-      ),
+      image: "/SachetAvatar.jpg",
     },
     {
-      name: "Sarah Williams",
-      role: "CTO",
-      avatar: (
-        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 text-white text-4xl font-bold">
-          SW
-        </div>
-      ),
+      name: "Piyush Pareek",
+      role: "Security Expert",
+      image: "/PiyushAvatar.jpg",
     },
     {
-      name: "Michael Chen",
+      name: "Sujan Shah",
       role: "Lead Developer",
-      avatar: (
-        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-500 to-[#188f8b] text-white text-4xl font-bold">
-          MC
-        </div>
-      ),
+      image: "/SujanAvatar.jpg",
     },
     {
-      name: "Priya Patel",
-      role: "UX Director",
-      avatar: (
-        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-pink-500 to-orange-400 text-white text-4xl font-bold">
-          PP
-        </div>
-      ),
+      name: "Vedant Jain",
+      role: "Tech Consultant",
+      image: "/RatanAvatar.jpg",
     },
   ];
 
-  // Creative office placeholder
-  const OfficePlaceholder = () => (
-    <div className="relative w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-2xl overflow-hidden">
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="grid grid-cols-3 gap-4 w-3/4">
-          {[...Array(9)].map((_, i) => (
-            <div 
-              key={i}
-              className={`h-16 rounded-lg ${i % 3 === 0 ? 'bg-[#188f8b]/30' : i % 3 === 1 ? 'bg-purple-500/30' : 'bg-blue-500/30'}`}
-            />
-          ))}
-        </div>
-      </div>
-      <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent flex items-end p-6">
-        <div className="text-white">
-          <p className="text-sm font-medium">Our Creative Space</p>
-          <h3 className="text-xl font-bold mt-1">Where Ideas Become Reality</h3>
-        </div>
-      </div>
-      <CircuitPattern />
-    </div>
-  );
-
   return (
-    <section className="relative py-20 md:py-28 bg-gradient-to-b from-slate-50 to-blue-50/30 dark:from-slate-900 dark:to-blue-950/30 overflow-hidden">
-      {/* Creative background elements */}
+    <section className="relative py-16 md:py-24 bg-gradient-to-b from-slate-50 to-blue-50/30  overflow-hidden">
+      {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl"></div>
-        <AbstractShape />
+        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1440 900">
+          <path
+            d="M0,450 C300,550 700,350 1440,450 L1440,900 L0,900 Z"
+            fill="currentColor"
+            className="text-[#188f8b]/10 "
+          />
+        </svg>
       </div>
 
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-16 md:mb-20"
+          className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 border border-blue-200 dark:border-blue-800 rounded-full text-sm font-medium shadow-lg backdrop-blur-sm mb-6">
+          <motion.span 
+            className="inline-block px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50  border border-blue-200  rounded-full text-sm font-medium shadow-lg backdrop-blur-sm mb-6"
+            whileHover={{ scale: 1.05 }}
+          >
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Our Story
             </span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent mb-4">
-            Pioneering Digital Excellence
+          </motion.span>
+
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900  mb-6">
+            Crafting Digital Excellence
           </h2>
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-            Transforming visions into reality through innovative technology solutions since 2015
+          <p className="text-xl text-slate-600  max-w-3xl mx-auto leading-relaxed">
+            Where innovative ideas meet flawless execution to create transformative digital experiences
           </p>
         </motion.div>
 
         {/* Company overview */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24 md:mb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800 h-96"
+            className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-200  h-[400px] lg:h-[500px]"
           >
-            <OfficePlaceholder />
+            <Image
+              src="https://images.unsplash.com/photo-1610374792793-f016b77ca51a?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Our creative team collaborating"
+              fill
+              className="object-cover w-full h-full"
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent flex items-end p-8">
+              <div>
+                <p className="text-white/90 text-sm font-medium">Our Workspace</p>
+                <h3 className="text-white text-2xl font-bold mt-1">Where Innovation Thrives</h3>
+              </div>
+            </div>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-6">
-              Building the Future, One Solution at a Time
+            <h3 className="text-3xl font-bold text-slate-900  mb-6">
+              Pioneering Technology Solutions Since 2020
             </h3>
-            <div className="space-y-4 text-slate-600 dark:text-slate-400">
+            <div className="space-y-5 text-slate-600  text-lg leading-relaxed">
               <p>
-                Founded in 2025, Seraxmi began as a small team of passionate developers with a vision to 
-                bridge the digital divide. Today, we&apos;re a global technology partner serving clients worldwide.
+                Founded with a vision to bridge the gap between business needs and technological possibilities, we've grown into a trusted partner for organizations worldwide.
               </p>
               <p>
-                Our journey has been marked by relentless innovation, from our first mobile app to our current AI-powered 
-                enterprise solutions. We&apos;ve stayed true to our core belief: technology should empower, not complicate.
+                Our team of passionate experts combines technical prowess with creative thinking to deliver solutions that not only meet but exceed expectations.
               </p>
               <p>
-                What sets us apart is our human-centered approach. We don&apos;t just build software - we craft digital 
-                experiences that solve real problems and create meaningful impact.
+                We believe technology should be an enabler, not a barrier. That's why we focus on creating intuitive, powerful solutions that drive real business results.
               </p>
             </div>
           </motion.div>
@@ -193,26 +149,30 @@ const AboutUs = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-24 md:mb-32"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-24"
         >
           {stats.map((stat, index) => (
-            <motion.div 
+            <motion.div
               key={index}
-              whileHover={{ y: -5 }}
-              className="bg-white dark:bg-slate-800/50 p-6 rounded-xl shadow-lg border border-slate-200 dark:border-slate-800 flex flex-col items-center text-center relative overflow-hidden"
+              whileHover={{ y: -8 }}
+              className="bg-white  p-6 rounded-xl shadow-lg border border-slate-200  flex flex-col items-center text-center relative overflow-hidden hover:shadow-xl transition-all"
             >
-              <div className="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-[#188f8b]/10 dark:bg-[#188f8b]/5"></div>
+              <div className="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-[#188f8b]/10 "></div>
               <div className="bg-[#188f8b]/10 p-3 rounded-full mb-4 text-[#188f8b] relative z-10">
                 {stat.icon}
               </div>
-              <h4 className="text-3xl font-bold text-slate-900 dark:text-white mb-2 relative z-10">{stat.value}</h4>
-              <p className="text-slate-600 dark:text-slate-400 relative z-10">{stat.label}</p>
+              <h4 className="text-3xl font-bold text-slate-900  mb-2 relative z-10">
+                {stat.value}
+              </h4>
+              <p className="text-slate-600  relative z-10">
+                {stat.label}
+              </p>
             </motion.div>
           ))}
         </motion.div>
 
         {/* Core values */}
-        <div className="mb-24 md:mb-32">
+        <div className="mb-24">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -220,11 +180,11 @@ const AboutUs = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-4">
-              Our Core Values
+            <h3 className="text-3xl font-bold text-slate-900  mb-4">
+              Our Guiding Principles
             </h3>
-            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              The principles that guide every decision we make and every solution we deliver
+            <p className="text-xl text-slate-600  max-w-2xl mx-auto">
+              The foundation of everything we do
             </p>
           </motion.div>
 
@@ -232,21 +192,23 @@ const AboutUs = () => {
             {coreValues.map((value, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.03 }}
+                whileHover={{ y: -5 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white dark:bg-slate-800/50 p-8 rounded-xl shadow-lg border border-slate-200 dark:border-slate-800 hover:border-[#188f8b] transition-all duration-300 relative overflow-hidden group"
+                className="bg-white  p-8 rounded-2xl shadow-lg border border-slate-200  hover:border-[#188f8b] transition-all duration-300 relative overflow-hidden group"
               >
-                <div className="absolute -right-8 -bottom-8 w-32 h-32 rounded-full bg-[#188f8b]/10 dark:bg-[#188f8b]/5 group-hover:scale-150 transition-transform duration-500"></div>
-                <div className="flex items-center mb-4 relative z-10">
-                  <div className="bg-[#188f8b]/10 p-2 rounded-lg mr-4">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#188f8b]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="flex items-start mb-6 relative z-10">
+                  <div className="bg-[#188f8b]/10 p-3 rounded-xl mr-5">
                     {value.icon}
                   </div>
-                  <h4 className="text-xl font-bold text-slate-900 dark:text-white">{value.title}</h4>
+                  <h4 className="text-2xl font-bold text-slate-900  mt-1">{value.title}</h4>
                 </div>
-                <p className="text-slate-600 dark:text-slate-400 relative z-10">{value.description}</p>
+                <p className="text-slate-600  relative z-10 text-lg leading-relaxed">
+                  {value.description}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -261,11 +223,11 @@ const AboutUs = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-4">
-              Meet Our Leadership
+            <h3 className="text-3xl font-bold text-slate-900  mb-4">
+              Meet The Visionaries
             </h3>
-            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              The brilliant minds driving our vision forward
+            <p className="text-xl text-slate-600  max-w-2xl mx-auto">
+              The brilliant minds shaping our future
             </p>
           </motion.div>
 
@@ -273,25 +235,31 @@ const AboutUs = () => {
             {team.map((member, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -5 }}
+                whileHover={{ y: -10 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 className="group text-center"
               >
-                <div className="relative rounded-xl overflow-hidden mb-4 aspect-square shadow-lg">
-                  {member.avatar}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                    <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                      <p className="text-white text-sm">{member.role}</p>
+                <div className="relative rounded-2xl overflow-hidden mb-6 aspect-square shadow-xl">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div className="translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
+                      <p className="text-white/90 text-sm font-medium">{member.role}</p>
                     </div>
                   </div>
                 </div>
-                <h4 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-[#188f8b] transition-colors duration-300">
+                <h4 className="text-2xl font-bold text-slate-900  group-hover:text-[#188f8b] transition-colors duration-300">
                   {member.name}
                 </h4>
-                <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
+                <p className="text-[#188f8b]  font-medium mt-2">
                   {member.role}
                 </p>
               </motion.div>

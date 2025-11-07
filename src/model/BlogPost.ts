@@ -41,20 +41,7 @@ const BlogPostSchema: Schema<BlogPost> = new Schema({
     required: [true, 'Please provide a publish date'],
     default: Date.now
   },
-  readTime: {
-    type: String,
-    required: [true, 'Please provide read time'],
-    match: [/^\d+\smin read$/, 'Read time format should be "X min read"']
-  },
-  category: {
-    type: String,
-    required: [true, 'Please provide a category'],
-    trim: true,
-    enum: {
-      values: ['Design', 'Development', 'Product', 'Case Study', 'Tutorial'],
-      message: 'Invalid category'
-    }
-  },
+
   imageUrl: {
     type: String,
     required: [true, 'Please provide an image URL'],

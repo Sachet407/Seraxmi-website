@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useRef } from "react"
+import React, { useState, useEffect } from "react"
 import Image from "next/image"
 
 interface Project {
@@ -89,182 +89,248 @@ const getAccent = (id: number) => {
 }
 
 const ShowProjects = () => {
+  const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
-  const [hoveredId, setHoveredId] = useState<number | null>(null)
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -320, behavior: 'smooth' })
-    }
+  // Auto-play functionality
+  useEffect(() => {
+    if (!isAutoPlaying) return
+    
+    const interval = setInterval(() => {
+      setCurrentIndex(prev => (prev + 1) % projects.length)
+    }, 4000)
+    
+    return () => clearInterval(interval)
+  }, [isAutoPlaying])
+
+  const nextProject = () => {
+    setCurrentIndex((prev) => (prev + 1) % projects.length)
+    setIsAutoPlaying(false)
   }
 
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 320, behavior: 'smooth' })
-    }
+  const prevProject = () => {
+    setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length)
+    setIsAutoPlaying(false)
   }
+
+  const goToProject = (index: number) => {
+    setCurrentIndex(index)
+    setIsAutoPlaying(false)
+  }
+
+  const getVisibleProjects = () => {
+    const visible = []
+    for (let i = 0; i < 3; i++) {
+      const index = (currentIndex + i) % projects.length
+      visible.push({
+        ...projects[index],
+        position: i,
+        isActive: i === 0
+      })
+    }
+    return visible
+  }
+
+  const visibleProjects = getVisibleProjects()
 
   return (
-    <section className=" relative overflow-hidden">
-      {/* Floating background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-blue-100 rounded-full opacity-30 animate-pulse"></div>
-        <div className="absolute top-60 right-20 w-24 h-24 bg-purple-100 rounded-full opacity-40 animate-bounce"></div>
-        <div className="absolute bottom-40 left-1/4 w-20 h-20 bg-green-100 rounded-full opacity-30 animate-pulse"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-20 relative z-10">
+    <section className="py-16 sm:py-24 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-tight mb-4">
-            Creative <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Portfolio</span>
+        <div className="text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+            Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-purple-600">Projects</span>
           </h2>
-          <p className="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto">
-            Explore my digital creations through an interactive showcase
+          <p className="text-slate-600 text-lg max-w-2xl mx-auto">
+            Discover innovative solutions crafted with passion and precision
           </p>
         </div>
 
-        {/* Horizontal Scrolling Container */}
+        {/* Projects Carousel */}
         <div className="relative">
-          {/* Scroll Buttons */}
-          <button
-            onClick={scrollLeft}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-white shadow-lg rounded-full flex items-center justify-center hover:shadow-xl transition-all duration-300 border border-slate-200"
-          >
-            <svg className="w-5 h-5 sm:w-6 sm:h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          
-          <button
-            onClick={scrollRight}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-white shadow-lg rounded-full flex items-center justify-center hover:shadow-xl transition-all duration-300 border border-slate-200"
-          >
-            <svg className="w-5 h-5 sm:w-6 sm:h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
-          {/* Scrollable Projects Container */}
-          <div 
-            ref={scrollContainerRef}
-            className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-hide px-12 sm:px-16 py-4"
-            style={{ 
-              scrollBehavior: 'smooth',
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none'
-            }}
-          >
-            {projects.map((project) => {
+          {/* Main Display Area */}
+          <div className="flex items-center justify-center h-[600px] relative">
+            {visibleProjects.map((project, index) => {
               const accent = getAccent(project.id)
+              const isActive = project.position === 0
               
               return (
                 <div
-                  key={project.id}
-                  className="flex-shrink-0 w-72 sm:w-80 group relative cursor-pointer transition-all duration-500 transform hover:scale-105"
-                  onMouseEnter={() => setHoveredId(project.id)}
-                  onMouseLeave={() => setHoveredId(null)}
-                  onClick={() => setSelectedProject(project)}
+                  key={`${project.id}-${currentIndex}`}
+                  className={`absolute transition-all duration-700 ease-out cursor-pointer ${
+                    project.position === 0 
+                      ? 'z-30 scale-100 opacity-100 translate-x-0' 
+                      : project.position === 1
+                        ? 'z-20 scale-90 opacity-60 translate-x-80 sm:translate-x-96'
+                        : 'z-10 scale-75 opacity-30 translate-x-[-320px] sm:translate-x-[-384px]'
+                  }`}
+                  onClick={() => isActive ? setSelectedProject(project) : goToProject((currentIndex + project.position) % projects.length)}
                 >
-                  {/* Project Card */}
                   <div 
-                    className="relative rounded-2xl overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-300 bg-white"
-                    style={{ 
-                      boxShadow: hoveredId === project.id ? `0 20px 40px ${accent}30` : undefined 
+                    className={`bg-white rounded-3xl shadow-2xl overflow-hidden w-80 sm:w-96 h-[500px] transition-all duration-700 ${
+                      isActive ? 'hover:scale-105 hover:shadow-3xl' : ''
+                    }`}
+                    style={{
+                      boxShadow: isActive ? `0 25px 50px ${accent}30` : undefined
                     }}
                   >
                     {/* Project Image */}
-                    <div className="relative h-48 sm:h-52 overflow-hidden">
+                    <div className="relative h-60 overflow-hidden">
                       <Image
                         src={project.imageUrl}
                         alt={project.title}
                         fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        className={`object-cover transition-transform duration-700 ${
+                          isActive ? 'scale-100 group-hover:scale-110' : 'scale-105'
+                        }`}
                       />
                       
                       {/* Gradient overlay */}
                       <div 
-                        className="absolute inset-0 opacity-0 group-hover:opacity-90 transition-opacity duration-300"
+                        className={`absolute inset-0 transition-opacity duration-500 ${
+                          isActive ? 'opacity-0 hover:opacity-70' : 'opacity-40'
+                        }`}
                         style={{ 
                           background: `linear-gradient(135deg, ${accent}80, ${accent}40)` 
                         }}
                       />
                       
-                      {/* Hover content */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
-                        <div className="text-center text-white p-4">
-                          <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-2 backdrop-blur-sm">
-                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-                            </svg>
-                          </div>
-                          <p className="text-sm font-semibold">View Details</p>
+                      {/* Active indicator */}
+                      {isActive && (
+                        <div className="absolute top-4 left-4">
+                          <div 
+                            className="w-3 h-3 rounded-full animate-pulse"
+                            style={{ backgroundColor: accent }}
+                          />
                         </div>
-                      </div>
+                      )}
                     </div>
 
                     {/* Project Info */}
-                    <div className="p-4 sm:p-6">
-                      <h3 className="font-bold text-lg sm:text-xl text-slate-800 mb-2 group-hover:text-slate-900 transition-colors">
+                    <div className="p-6">
+                      <h3 className={`font-bold text-xl mb-3 transition-colors duration-300 ${
+                        isActive ? 'text-slate-900' : 'text-slate-700'
+                      }`}>
                         {project.title}
                       </h3>
-                      <p className="text-slate-600 text-sm sm:text-base mb-4 line-clamp-3">
-                        {project.description}
+                      
+                      <p className={`text-sm mb-4 leading-relaxed transition-colors duration-300 ${
+                        isActive ? 'text-slate-600' : 'text-slate-500'
+                      }`}>
+                        {project.description.substring(0, 100)}...
                       </p>
-                      <div className="flex flex-wrap gap-2">
-                        {project.tags.map(tag => (
+                      
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tags.slice(0, 3).map(tag => (
                           <span
                             key={tag}
-                            className="text-xs px-2 py-1 rounded-full bg-slate-100 text-slate-600 font-medium"
+                            className={`text-xs px-3 py-1 rounded-full font-medium transition-all duration-300 ${
+                              isActive ? 'text-white' : 'text-slate-600 bg-slate-100'
+                            }`}
+                            style={{ 
+                              backgroundColor: isActive ? accent : undefined 
+                            }}
                           >
                             {tag}
                           </span>
                         ))}
                       </div>
+                      
+                      {isActive && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            setSelectedProject(project)
+                          }}
+                          className="w-full py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:shadow-lg transform hover:scale-105"
+                          style={{ backgroundColor: accent }}
+                        >
+                          View Details
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
               )
             })}
           </div>
+
+          {/* Navigation Buttons */}
+          <button
+            onClick={prevProject}
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white shadow-lg rounded-full flex items-center justify-center hover:shadow-xl transition-all duration-300 z-40 hover:scale-110"
+          >
+            <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          
+          <button
+            onClick={nextProject}
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white shadow-lg rounded-full flex items-center justify-center hover:shadow-xl transition-all duration-300 z-40 hover:scale-110"
+          >
+            <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Dots Navigation */}
+        <div className="flex justify-center mt-12 space-x-2">
+          {projects.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToProject(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentIndex
+                  ? 'bg-gradient-to-r from-violet-600 to-purple-600 scale-125'
+                  : 'bg-slate-300 hover:bg-slate-400'
+              }`}
+            />
+          ))}
         </div>
 
         {/* Project Detail Modal */}
         {selectedProject && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-            <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transform animate-in fade-in zoom-in duration-300">
+          <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
+            <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transform animate-in fade-in zoom-in-95 duration-300">
               <div className="relative">
                 {/* Close button */}
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="absolute top-4 right-4 z-10 w-10 h-10 bg-white bg-opacity-90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-opacity-100 transition-all duration-200 shadow-lg"
+                  className="absolute top-6 right-6 z-10 w-12 h-12 bg-white bg-opacity-90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-opacity-100 transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
-                  <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
 
                 {/* Project image */}
-                <div className="relative h-64 sm:h-80 rounded-t-3xl overflow-hidden">
+                <div className="relative h-80 rounded-t-3xl overflow-hidden">
                   <Image
                     src={selectedProject.imageUrl}
                     alt={selectedProject.title}
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
+                  <div 
+                    className="absolute inset-0 opacity-40"
+                    style={{
+                      background: `linear-gradient(135deg, ${getAccent(selectedProject.id)}60, transparent 70%)`
+                    }}
+                  />
                 </div>
 
                 {/* Project details */}
-                <div className="p-6 sm:p-8">
-                  <div className="mb-6">
-                    <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">{selectedProject.title}</h3>
-                    <div className="flex flex-wrap gap-2 mb-4">
+                <div className="p-8">
+                  <div className="mb-8">
+                    <h3 className="text-3xl font-bold text-slate-900 mb-6">{selectedProject.title}</h3>
+                    <div className="flex flex-wrap gap-3 mb-6">
                       {selectedProject.tags.map(tag => (
                         <span
                           key={tag}
-                          className="text-sm px-3 py-1 rounded-full text-white font-medium"
+                          className="text-sm px-4 py-2 rounded-full text-white font-medium shadow-md"
                           style={{ backgroundColor: getAccent(selectedProject.id) }}
                         >
                           {tag}
@@ -273,9 +339,11 @@ const ShowProjects = () => {
                     </div>
                   </div>
 
-                  <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-                    {selectedProject.description}
-                  </p>
+                  <div className="prose prose-lg max-w-none">
+                    <p className="text-slate-700 text-lg leading-relaxed">
+                      {selectedProject.description}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -283,21 +351,7 @@ const ShowProjects = () => {
         )}
       </div>
 
-      <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .line-clamp-3 {
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-      `}</style>
+
     </section>
   )
 }

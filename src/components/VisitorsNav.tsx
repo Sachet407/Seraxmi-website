@@ -29,7 +29,7 @@ const navItems = [
       { href: '/services/cyber-security', label: 'Cyber Security' },
       { href: '/services/ai-ml-solutions', label: 'AI/ML Solutions' },
       { href: '/services/cloud-solutions', label: 'Cloud Solutions' },
-      { href: '/services/ui-ux', label: 'UI/UX Design' },
+
       { href: '/services/digital-marketing', label: 'Digital Marketing' },
     ],
   },
@@ -52,10 +52,10 @@ const NavigationLoader = React.memo(() => (
 NavigationLoader.displayName = 'NavigationLoader'
 
 // Enhanced Link component with loading state
-const NavigationLink = React.memo(({ 
-  href, 
-  children, 
-  className = '', 
+const NavigationLink = React.memo(({
+  href,
+  children,
+  className = '',
   onClick,
   onLoadingStart
 }: {
@@ -90,9 +90,9 @@ const NavigationLink = React.memo(({
 NavigationLink.displayName = 'NavigationLink'
 
 // Memoized subcomponents to prevent unnecessary re-renders
-const MobileNavItem = React.memo(({ item, pathname, onClose, onLoadingStart }: { 
-  item: typeof navItems[0], 
-  pathname: string, 
+const MobileNavItem = React.memo(({ item, pathname, onClose, onLoadingStart }: {
+  item: typeof navItems[0],
+  pathname: string,
   onClose: () => void,
   onLoadingStart: () => void
 }) => {
@@ -104,7 +104,7 @@ const MobileNavItem = React.memo(({ item, pathname, onClose, onLoadingStart }: {
       <div>
         <div className={`px-5 py-3 rounded-xl font-bold text-lg ${isActive
           ? 'text-[#188f8b]'
-          : 'text-gray-900 dark:text-white'
+          : 'text-gray-900 '
           }`}>
           {item.label}
         </div>
@@ -118,7 +118,7 @@ const MobileNavItem = React.memo(({ item, pathname, onClose, onLoadingStart }: {
               className={`block px-5 py-2 rounded-lg text-base font-medium transition-all duration-200
                 ${pathname === sub.href
                   ? 'text-[#188f8b] underline underline-offset-4'
-                  : 'hover:text-[#188f8b] text-gray-700 dark:text-gray-300'
+                  : 'hover:text-[#188f8b] text-gray-700 '
                 }`}
             >
               {sub.label}
@@ -137,7 +137,7 @@ const MobileNavItem = React.memo(({ item, pathname, onClose, onLoadingStart }: {
       className={`block px-5 py-3 rounded-xl font-bold text-lg transition-all duration-200
         ${isActive
           ? 'text-[#188f8b] underline underline-offset-4'
-          : 'hover:text-[#188f8b] text-gray-900 dark:text-white'
+          : 'hover:text-[#188f8b] text-gray-900 '
         }`}
     >
       {item.label}
@@ -172,13 +172,13 @@ const DesktopNavItem = React.memo(({ item, pathname, isServicesOpen, setIsServic
         <button
           onClick={handleServicesToggle}
           className={`flex items-center gap-1 px-4 py-2 font-medium transition-colors duration-200
-            ${isActive ? 'text-[#188f8b]' : 'text-gray-700 dark:text-gray-300'}
+            ${isActive ? 'text-[#188f8b]' : 'text-gray-700 '}
           `}
         >
           {item.label}
           <ChevronDown className={`ml-1 w-5 h-5 transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
         </button>
-        <div className={`absolute left-0 mt-2 w-56 rounded-xl bg-white/95 dark:bg-gray-900/95 shadow-2xl ring-1 ring-gray-200/40 dark:ring-gray-700/40 py-2 z-50 transition-all duration-200
+        <div className={`absolute left-0 mt-2 w-56 rounded-xl bg-white/95  shadow-2xl ring-1 ring-gray-200/40  py-2 z-50 transition-all duration-200
           ${isServicesOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
         `}>
           {item.subItems.map(sub => (
@@ -190,7 +190,7 @@ const DesktopNavItem = React.memo(({ item, pathname, isServicesOpen, setIsServic
               className={`block px-5 py-2 rounded-lg font-medium transition-all duration-200
                 ${pathname === sub.href
                   ? 'text-[#188f8b] underline underline-offset-4'
-                  : 'hover:text-[#188f8b] text-gray-700 dark:text-gray-300'}
+                  : 'hover:text-[#188f8b] text-gray-700 '}
               `}
             >
               {sub.label}
@@ -208,7 +208,7 @@ const DesktopNavItem = React.memo(({ item, pathname, isServicesOpen, setIsServic
       className={`relative px-4 py-2 font-medium transition-colors duration-200
         ${isActive
           ? 'text-[#188f8b] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:w-8 after:h-[2px] after:bg-[#188f8b] after:rounded-full after:transition-all after:duration-300 after:content-[""]'
-          : 'text-gray-700 dark:text-gray-300 hover:text-[#188f8b]'}
+          : 'text-gray-700  hover:text-[#188f8b]'}
       `}
     >
       {item.label}
@@ -332,12 +332,11 @@ export default function WorldClassHeader() {
   }, [formData])
 
   // Memoize header class to prevent recalculation
-  const headerClasses = useMemo(() => 
-    `fixed w-full z-50 top-0 transition-all duration-500 ${
-      scrolled
-        ? 'bg-white/80 dark:bg-gray-900/80 shadow-xl backdrop-blur-xl'
-        : 'bg-transparent'
-    }`, 
+  const headerClasses = useMemo(() =>
+    `fixed w-full z-50 top-0 transition-all duration-500 ${scrolled
+      ? 'bg-white/80  shadow-xl backdrop-blur-xl'
+      : 'bg-transparent'
+    }`,
     [scrolled]
   )
 
@@ -345,7 +344,7 @@ export default function WorldClassHeader() {
     <>
       {/* Navigation Loader */}
       {isNavigating && <NavigationLoader />}
-      
+
       <header className={headerClasses}>
         <nav className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-20">
           {/* Logo */}
@@ -358,7 +357,7 @@ export default function WorldClassHeader() {
               className="object-contain transition-transform duration-200 group-hover:scale-105"
               priority
             />
-            <span className="ml-3 font-light text-2xl tracking-tight text-gray-900 dark:text-white select-none">
+            <span className="ml-3 font-light text-2xl tracking-tight text-gray-900  select-none">
               SERAXMI
             </span>
           </NavigationLink>
@@ -392,7 +391,7 @@ export default function WorldClassHeader() {
           {/* Mobile Menu Button */}
           <button
             onClick={handleMobileMenuToggle}
-            className="lg:hidden p-3 rounded-xl text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
+            className="lg:hidden p-3 rounded-xl text-gray-800  hover:bg-gray-100  transition-all duration-300"
             aria-label="Open mobile menu"
           >
             {isMobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
@@ -404,7 +403,7 @@ export default function WorldClassHeader() {
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-40 lg:hidden">
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={handleMobileMenuClose}></div>
-          <div className="fixed top-0 right-0 w-full max-w-xs h-full bg-white/95 dark:bg-gray-900/95 shadow-2xl transition-transform duration-400 ease-out">
+          <div className="fixed top-0 right-0 w-full max-w-xs h-full bg-white/95  shadow-2xl transition-transform duration-400 ease-out">
             <div className="pt-24 pb-8 px-8">
               <nav className="space-y-4">
                 {navItems.map(item => (
@@ -441,14 +440,14 @@ export default function WorldClassHeader() {
             onClick={closeModal}
           ></div>
 
-          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-900 rounded-3xl shadow-2xl border border-gray-200/20 dark:border-gray-700/20">
+          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white  rounded-3xl shadow-2xl border border-gray-200/20 ">
             {!isSubmitted ? (
               <>
                 {/* Modal Header */}
-                <div className="relative px-8 pt-8 pb-6 border-b border-gray-200/20 dark:border-gray-700/20">
+                <div className="relative px-8 pt-8 pb-6 border-b border-gray-200/20 ">
                   <button
                     onClick={closeModal}
-                    className="absolute top-6 right-6 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    className="absolute top-6 right-6 p-2 rounded-full hover:bg-gray-100  transition-colors"
                   >
                     <X className="w-6 h-6 text-gray-500" />
                   </button>
@@ -458,8 +457,8 @@ export default function WorldClassHeader() {
                       <Calendar className="w-8 h-8 text-white" />
                     </div>
                     <div>
-                      <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Book a Call</h2>
-                      <p className="text-gray-600 dark:text-gray-400 mt-1">Let&apos;s discuss your project and bring your vision to life</p>
+                      <h2 className="text-3xl font-bold text-gray-900 ">Book a Call</h2>
+                      <p className="text-gray-600  mt-1">Let&apos;s discuss your project and bring your vision to life</p>
                     </div>
                   </div>
                 </div>
@@ -468,7 +467,7 @@ export default function WorldClassHeader() {
                 <form onSubmit={handleSubmit} className="p-8 space-y-6">
                   {/* Name Field */}
                   <div className="group">
-                    <label className="flex items-center gap-3 text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                    <label className="flex items-center gap-3 text-sm font-semibold text-gray-700  mb-3">
                       <User className="w-5 h-5 text-[#188f8b]" />
                       Full Name *
                     </label>
@@ -478,14 +477,14 @@ export default function WorldClassHeader() {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#188f8b] focus:border-transparent outline-none transition-all duration-200"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-300  bg-white  text-gray-900  placeholder-gray-500  focus:ring-2 focus:ring-[#188f8b] focus:border-transparent outline-none transition-all duration-200"
                       placeholder="Enter your full name"
                     />
                   </div>
 
                   {/* Company Name Field */}
                   <div className="group">
-                    <label className="flex items-center gap-3 text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                    <label className="flex items-center gap-3 text-sm font-semibold text-gray-700  mb-3">
                       <Building className="w-5 h-5 text-[#188f8b]" />
                       Company Name <span className="text-gray-400">(Optional)</span>
                     </label>
@@ -494,14 +493,14 @@ export default function WorldClassHeader() {
                       name="companyName"
                       value={formData.companyName}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#188f8b] focus:border-transparent outline-none transition-all duration-200"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-300  bg-white  text-gray-900  placeholder-gray-500  focus:ring-2 focus:ring-[#188f8b] focus:border-transparent outline-none transition-all duration-200"
                       placeholder="Your company name"
                     />
                   </div>
 
                   {/* Budget Field */}
                   <div className="group">
-                    <label className="flex items-center gap-3 text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                    <label className="flex items-center gap-3 text-sm font-semibold text-gray-700  mb-3">
                       <DollarSign className="w-5 h-5 text-[#188f8b]" />
                       Project Budget *
                     </label>
@@ -510,7 +509,7 @@ export default function WorldClassHeader() {
                       value={formData.budget}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#188f8b] focus:border-transparent outline-none transition-all duration-200"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-300  bg-white  text-gray-900  focus:ring-2 focus:ring-[#188f8b] focus:border-transparent outline-none transition-all duration-200"
                     >
                       <option value="">Select your budget range</option>
                       <option value="under-5k">Under $5,000</option>
@@ -523,7 +522,7 @@ export default function WorldClassHeader() {
 
                   {/* Email Field */}
                   <div className="group">
-                    <label className="flex items-center gap-3 text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                    <label className="flex items-center gap-3 text-sm font-semibold text-gray-700  mb-3">
                       <Mail className="w-5 h-5 text-[#188f8b]" />
                       Email Address *
                     </label>
@@ -533,14 +532,14 @@ export default function WorldClassHeader() {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#188f8b] focus:border-transparent outline-none transition-all duration-200"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-300  bg-white  text-gray-900  placeholder-gray-500  focus:ring-2 focus:ring-[#188f8b] focus:border-transparent outline-none transition-all duration-200"
                       placeholder="your.email@example.com"
                     />
                   </div>
 
                   {/* Project Description Field */}
                   <div className="group">
-                    <label className="flex items-center gap-3 text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                    <label className="flex items-center gap-3 text-sm font-semibold text-gray-700 mb-3">
                       <FileText className="w-5 h-5 text-[#188f8b]" />
                       Project Description *
                     </label>
@@ -550,7 +549,7 @@ export default function WorldClassHeader() {
                       onChange={handleInputChange}
                       required
                       rows={4}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-[#188f8b] focus:border-transparent outline-none transition-all duration-200 resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-300  bg-white  text-gray-900  placeholder-gray-500  focus:ring-2 focus:ring-[#188f8b] focus:border-transparent outline-none transition-all duration-200 resize-none"
                       placeholder="Tell us about your project, goals, and any specific requirements..."
                     />
                   </div>
@@ -571,11 +570,11 @@ export default function WorldClassHeader() {
                 <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                   <CheckCircle className="w-10 h-10 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Thank You!</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-lg mb-2">Your meeting request has been submitted successfully.</p>
+                <h3 className="text-2xl font-bold text-gray-900 ">Thank You!</h3>
+                <p className="text-gray-600  text-lg mb-2">Your meeting request has been submitted successfully.</p>
                 <p className="text-[#188f8b] font-semibold text-lg">Stay updated on your Gmail account please.</p>
-                <div className="mt-8 p-4 bg-gray-50 dark:bg-gray-800 rounded-xl">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">We&apos;ll reach out to you within 24 hours to schedule your consultation.</p>
+                <div className="mt-8 p-4 bg-gray-50  rounded-xl">
+                  <p className="text-sm text-gray-600 ">We&apos;ll reach out to you within 24 hours to schedule your consultation.</p>
                 </div>
               </div>
             )}
