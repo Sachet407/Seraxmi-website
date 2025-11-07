@@ -1,7 +1,7 @@
 "use client";
-import { CalendarDays, Clock, User, Tag, ChevronLeft } from 'lucide-react';
+import { CalendarDays, Clock, User, Tag } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
+// import Link from 'next/link';
 
 const BlogPostPage = () => {
   // Dummy data - replace with your actual fetched data later

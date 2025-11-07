@@ -131,13 +131,13 @@ const AboutUs = () => {
             </h3>
             <div className="space-y-5 text-slate-600  text-lg leading-relaxed">
               <p>
-                Founded with a vision to bridge the gap between business needs and technological possibilities, we've grown into a trusted partner for organizations worldwide.
+                Founded with a vision to bridge the gap between business needs and technological possibilities, we&apos;ve grown into a trusted partner for organizations worldwide.
               </p>
               <p>
                 Our team of passionate experts combines technical prowess with creative thinking to deliver solutions that not only meet but exceed expectations.
               </p>
               <p>
-                We believe technology should be an enabler, not a barrier. That's why we focus on creating intuitive, powerful solutions that drive real business results.
+                We believe technology should be an enabler, not a barrier. That&apos;s why we focus on creating intuitive, powerful solutions that drive real business results.
               </p>
             </div>
           </motion.div>
