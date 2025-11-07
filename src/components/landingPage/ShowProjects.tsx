@@ -151,7 +151,7 @@ const ShowProjects = () => {
         <div className="relative">
           {/* Main Display Area */}
           <div className="flex items-center justify-center h-[600px] relative">
-            {visibleProjects.map((project, index) => {
+            {visibleProjects.map((project) => {
               const accent = getAccent(project.id)
               const isActive = project.position === 0
               

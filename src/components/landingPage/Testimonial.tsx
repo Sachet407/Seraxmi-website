@@ -60,7 +60,7 @@ export default function TestimonialSection() {
             What Clients <span className="text-[#1a837f]">Say</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Hear from the people who've worked with me
+            Hear from the people who&apos;ve worked with me
           </p>
         </motion.div>
 
@@ -128,7 +128,7 @@ export default function TestimonialSection() {
                       </div>
                     </div>
                     <blockquote className="text-lg text-gray-700 italic mb-6">
-                      "{testimonial.content}"
+                      &quot;{testimonial.content}&quot;
                     </blockquote>
                   </motion.div>
                 </div>
