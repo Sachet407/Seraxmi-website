@@ -1,9 +1,11 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
+import { signIn, getSession } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
+
+
 
 const SignInPage = () => {
   const [identifier, setIdentifier] = useState('');
@@ -13,29 +15,42 @@ const SignInPage = () => {
   const [error, setError] = useState('');
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError('');
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setError('');
 
-    try {
-      const res = await signIn('credentials', {
-        redirect: false,
-        identifier,
-        password,
-      });
+  try {
+    const res = await signIn('credentials', {
+      redirect: false,
+      identifier,
+      password,
+    });
 
-      if (res?.error) {
-        setError(res.error);
+    if (res?.error) {
+      setError(res.error);
+    } else {
+      // Fetch logged-in user session
+      const session = await getSession();
+
+      const role = session?.user?.role;
+
+      if (role === "admin") {
+        router.push("/admin/dashboard");
+      } else if (role === "client") {
+        router.push("/client");
       } else {
-        router.push('/admin/dashboard');
+        // fallback
+        router.push("/");
       }
-    } catch (err) {
-     setError(err instanceof Error ? err.message : 'An unexpected error occurred');
-    } finally {
-      setIsLoading(false);
     }
-  };
+  } catch (err) {
+    setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
     <div className="min-h-[calc(100vh-160px)] flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4 py-12">

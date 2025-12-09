@@ -14,8 +14,8 @@ const UserSchema: Schema<User> = new Schema({
   },
   email: {
     type: String,
-    required: [true, 'Please provide an email'],
     unique: true,
+    sparse: true,
   },
   password: {
     type: String,
@@ -25,7 +25,7 @@ const UserSchema: Schema<User> = new Schema({
   },
   role: {
     type: String,
-    enum: ['admin', 'user'],
+    enum: ['admin', 'client','user'],
     default: 'user',
   },
 });

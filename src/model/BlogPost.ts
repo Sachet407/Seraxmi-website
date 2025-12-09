@@ -1,71 +1,81 @@
 import mongoose, { Schema, Document } from "mongoose";
 
+export interface IAuthorDetails {
+  id: string;
+  name: string;
+  photo: string;
+  role: string;
+}
+
+export interface IBlogPostMetadata {
+  wordCount: number;
+  readingTime: number;
+  createdAt: Date;
+}
+
 export interface BlogPost extends Document {
   title: string;
-  excerpt: string;
+  slug: string;
+  keywords: string[];
+  authorId: string;
+  authorDetails: IAuthorDetails;
+  blogPhoto: string;
   content: string;
-  author: string;
-  publishDate: Date;
-  readTime: string;
-  category: string;
-  imageUrl: string;
-  tags: string[];
+  metadata: IBlogPostMetadata;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-const BlogPostSchema: Schema<BlogPost> = new Schema({
-  title: {
-    type: String,
-    required: [true, 'Please provide a title'],
-    trim: true,
-    maxlength: [120, 'Title cannot exceed 120 characters']
+const BlogPostSchema: Schema<BlogPost> = new Schema(
+  {
+    title: {
+      type: String,
+      required: [true, "Please provide a title"],
+      trim: true,
+      maxlength: [120, "Title cannot exceed 120 characters"],
+    },
+    slug: {
+      type: String,
+      required: [true, "Please provide a slug"],
+      unique: true,
+      trim: true,
+    },
+    keywords: {
+      type: [String],
+      default: [],
+    },
+    authorId: {
+      type: String,
+      required: [true, "Please provide an author ID"],
+    },
+    authorDetails: {
+      id: { type: String, required: true },
+      name: { type: String, required: true },
+      photo: { type: String, required: true },
+      role: { type: String, required: true },
+    },
+    blogPhoto: {
+      type: String,
+      required: false,
+    },
+    content: {
+      type: String,
+      required: [true, "Please provide content"],
+    },
+    metadata: {
+      wordCount: { type: Number, default: 0 },
+      readingTime: { type: Number, default: 0 },
+      createdAt: { type: Date, default: Date.now },
+    },
   },
-  excerpt: {
-    type: String,
-    required: [true, 'Please provide an excerpt'],
-    trim: true,
-    maxlength: [200, 'Excerpt cannot exceed 200 characters']
-  },
-  content: {
-    type: String,
-    required: [true, 'Please provide content']
-  },
-  author: {
-    type: String,
-    required: [true, 'Please provide an author name'],
-    trim: true
-  },
-  publishDate: {
-    type: Date,
-    required: [true, 'Please provide a publish date'],
-    default: Date.now
-  },
-
-  imageUrl: {
-    type: String,
-    required: [true, 'Please provide an image URL'],
-    validate: {
-      validator: (value: string) => {
-        return /^(https?:\/\/)/.test(value);
-      },
-      message: 'Please provide a valid URL'
-    }
-  },
-  tags: {
-    type: [String],
-    required: [true, 'Please provide at least one tag'],
-    validate: {
-      validator: (value: string[]) => value.length > 0,
-      message: 'Please provide at least one tag'
-    }
+  {
+    timestamps: true, // Adds createdAt and updatedAt automatically
   }
-}, {
-  timestamps: true // Adds createdAt and updatedAt automatically
-});
+);
 
 // Model definition with type checking
-const BlogPostModel = (mongoose.models.BlogPost as mongoose.Model<BlogPost>) || 
-                     mongoose.model<BlogPost>("BlogPost", BlogPostSchema);
+const BlogPostModel =
+  (mongoose.models.BlogPost as mongoose.Model<BlogPost>) ||
+  mongoose.model<BlogPost>("BlogPost", BlogPostSchema);
 
 export default BlogPostModel;

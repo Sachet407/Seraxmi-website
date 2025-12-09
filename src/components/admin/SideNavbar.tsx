@@ -1,185 +1,310 @@
 "use client";
-import React, { useState } from 'react';
+
+import React, { useEffect, useState, useCallback } from "react";
 import {
-  Menu, X, FileText, Briefcase, Mail,
-  ChevronLeft, ChevronRight, Settings, User, LogOut
-} from 'lucide-react';
+  LayoutDashboard,
+  FileText,
+  PlusCircle,
+  List,
+  MessageSquare,
+  Key,
+  Briefcase,
+  Mail,
+  Newspaper,
+  Menu,
+  X,
+  ChevronDown,
+  LogOut,
+  Loader,
+} from "lucide-react";
+import { useRouter, usePathname } from "next/navigation";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import { signOut } from "next-auth/react";
 
-export default function AdminSidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState('blog');
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
+// -------------------------------------------
+// Navigation Structure
+// -------------------------------------------
 
-  const navigationItems = [
-    { id: 'blog', label: 'Blog', icon: FileText },
-    { id: 'projects', label: 'Projects', icon: Briefcase },
-    { id: 'newsletter', label: 'Newsletter', icon: Mail },
-  ];
+const NAV: any[] = [
+  { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, link: "/admin/dashboard" },
 
-  const bottomItems = [
-    { id: 'settings', label: 'Settings', icon: Settings },
-    { id: 'profile', label: 'Profile', icon: User },
-    { id: 'logout', label: 'Logout', icon: LogOut },
-  ];
+  {
+    id: "blog",
+    label: "Blog Management",
+    icon: FileText,
+    submenu: [
+      { id: "create-blog", label: "Create Blog", icon: PlusCircle, link: "/admin/blog/create" },
+      { id: "all-blogs", label: "All Blogs", icon: List, link: "/admin/blog" },
+    ],
+  },
 
-  const toggleSidebar = () => setIsCollapsed(!isCollapsed);
-  const toggleMobile = () => setIsMobileOpen(!isMobileOpen);
+  {
+    id: "testimonial",
+    label: "Testimonials",
+    icon: MessageSquare,
+    submenu: [
+      { id: "create-testimonial", label: "Create Testimonial", icon: PlusCircle, link: "/admin/testimonial/create" },
+      { id: "all-testimonials", label: "All Testimonials", icon: List, link: "/admin/testimonial" },
+      { id: "credentials", label: "Manage Credentials", icon: Key, link: "/admin/testimonial/credentials" },
+    ],
+  },
 
-  const handleLogout = async () => {
-    setIsLoggingOut(true);
-    await signOut({ callbackUrl: '/' });
+  {
+    id: "projects",
+    label: "Case Studies",
+    icon: Briefcase,
+    submenu: [
+      { id: "create-project", label: "Create Project", icon: PlusCircle, link: "/admin/projects/create" },
+      { id: "all-projects", label: "All Projects", icon: List, link: "/admin/projects/all" },
+    ],
+  },
+
+  { id: "enquiries", label: "Enquiries", icon: Mail, link: "/admin/enquiries" },
+  { id: "newsletter", label: "Newsletter", icon: Newspaper, link: "/admin/newsletter" },
+  { id: "contact", label: "Contact", icon: Newspaper, link: "/admin/contact" },
+];
+
+// -------------------------------------------
+// Page Transition Loader
+// -------------------------------------------
+
+const PageLoader = () => (
+  <div className="fixed inset-0 flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm z-[9999]">
+    <Image src="/seraxmi-Dark.svg" width={130} height={130} alt="Loading..." className="animate-pulse" />
+    <Loader className="w-6 h-6 mt-4 text-[#188f8b] animate-spin" />
+  </div>
+);
+
+// -------------------------------------------
+// Logout Modal
+// -------------------------------------------
+
+const LogoutModal = ({ open, onClose, onConfirm }: any) => {
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-[9999] p-4">
+      <motion.div
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+        className="bg-white rounded-xl p-6 w-full max-w-sm shadow-xl"
+      >
+        <h2 className="text-xl font-bold text-gray-800 text-center mb-3">Confirm Logout</h2>
+        <p className="text-center text-gray-600 mb-6">Are you sure you want to log out?</p>
+        <div className="flex justify-end gap-3">
+          <button onClick={onClose} className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">
+            Cancel
+          </button>
+          <button onClick={onConfirm} className="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700">
+            Logout
+          </button>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
+// -------------------------------------------
+// Main Sidebar Component
+// -------------------------------------------
+
+const AdminSidebar = () => {
+  const router = useRouter();
+  const pathname = usePathname() || "/";
+
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [logoutOpen, setLogoutOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Initialize expanded menu if current pathname is in submenu
+  useEffect(() => {
+    const newExpanded: Record<string, boolean> = {};
+    NAV.forEach((item) => {
+      if (item.submenu) {
+        const should = item.submenu.some((s: any) => s.link === pathname);
+        if (should) newExpanded[item.id] = true;
+      }
+    });
+    setExpanded((prev) => ({ ...newExpanded, ...prev }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+  // Hide loader when pathname changes (navigation finished)
+  useEffect(() => {
+    setLoading(false);
+  }, [pathname]);
+
+  const navigate = useCallback(
+    (url: string) => {
+      // don't show loader if navigating to the same URL
+      if (!url || url === pathname) {
+        setMobileOpen(false);
+        return;
+      }
+      setLoading(true);
+      router.push(url);
+      setMobileOpen(false);
+    },
+    [router, pathname]
+  );
+
+  const toggle = (id: string) =>
+    setExpanded((p) => ({
+      ...p,
+      [id]: !p[id],
+    }));
+
+  const logout = useCallback(async () => {
+    // triggers next-auth signOut which will redirect away;
+    // loader is not necessary here because page unload happens
+    await signOut({ redirect: true });
+  }, []);
+
+  const isActive = (link?: string) => {
+    if (!link) return false;
+    return pathname === link;
+  };
+
+  const NavItem = ({ item, isSub = false }: any) => {
+    const Icon = item.icon;
+    const active = isActive(item.link);
+    const expandedState = !!expanded[item.id];
+
+    // parent with submenu
+    if (item.submenu) {
+      return (
+        <div>
+          <button
+            onClick={() => toggle(item.id)}
+            className={`flex w-full items-center justify-between px-4 py-3 rounded-xl transition ${
+              expandedState ? "bg-[#188f8b]/10 text-[#188f8b]" : "hover:bg-gray-100 text-gray-700"
+            }`}
+            aria-expanded={expandedState}
+          >
+            <span className="flex items-center gap-3">
+              <Icon size={20} />
+              <span className="font-medium">{item.label}</span>
+            </span>
+            <ChevronDown size={18} className={`${expandedState ? "rotate-180" : ""} transition`} />
+          </button>
+
+          <AnimatePresence initial={false}>
+            {expandedState && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                className="ml-4 mt-1 pl-4 border-l border-gray-200 space-y-1"
+              >
+                {item.submenu.map((sub: any) => (
+                  <NavItem key={sub.id} item={sub} isSub />
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      );
+    }
+
+    // simple nav item
+    return (
+      <button
+        onClick={() => navigate(item.link)}
+        className={`relative flex w-full items-center gap-3 px-4 py-3 rounded-xl transition ${
+          active ? "bg-[#188f8b]/10 text-[#188f8b] font-medium" : "text-gray-700 hover:bg-gray-100"
+        } ${isSub ? "py-2 pl-6 text-sm" : ""}`}
+        aria-current={active ? "page" : undefined}
+      >
+        <Icon size={isSub ? 18 : 20} />
+        <span className={`${isSub ? "" : ""}`}>{item.label}</span>
+
+        {active && <span className="absolute left-0 top-0 h-full w-1 bg-[#188f8b] rounded-r-md" />}
+      </button>
+    );
   };
 
   return (
-    <div>
-      {/* Mobile Overlay */}
-      {isMobileOpen && (
-        <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={toggleMobile} />
-      )}
+    <>
+      {loading && <PageLoader />}
 
-      {/* Mobile Menu Button */}
+      <LogoutModal open={logoutOpen} onClose={() => setLogoutOpen(false)} onConfirm={logout} />
+
+      {/* Mobile Toggle Button */}
       <button
-        onClick={toggleMobile}
-        className="fixed top-4 left-4 z-50 lg:hidden bg-white rounded-lg p-2 shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-200"
+        className="lg:hidden fixed top-4 left-4 z-[200] bg-white/90 shadow p-2 rounded-lg"
+        onClick={() => setMobileOpen(true)}
+        aria-label="Open menu"
       >
-        <Menu className="w-6 h-6 text-gray-700" />
+        <Menu size={24} />
       </button>
 
-      {/* Sidebar */}
-      <div className={`fixed top-0 left-0 h-full bg-white border-r border-gray-200 shadow-xl z-50 transition-all duration-300 ease-in-out
-        ${isCollapsed ? 'w-16' : 'w-64'}
-        ${isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-      `}>
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <div className={`flex items-center space-x-3 ${isCollapsed ? 'justify-center' : ''}`}>
-            <div className="w-8 h-8 bg-[#188f8b] rounded-lg flex items-center justify-center shadow-lg">
-              <div className="w-4 h-4 bg-white rounded-sm"></div>
-            </div>
-            {!isCollapsed && <h1 className="font-bold text-xl text-gray-800">Admin</h1>}
-          </div>
-          {/* Toggle Buttons */}
-          <button onClick={toggleSidebar} className="hidden lg:flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors duration-200">
-            {isCollapsed ? <ChevronRight className="w-4 h-4 text-gray-600" /> : <ChevronLeft className="w-4 h-4 text-gray-600" />}
-          </button>
-          <button onClick={toggleMobile} className="lg:hidden flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors duration-200">
-            <X className="w-4 h-4 text-gray-600" />
-          </button>
-        </div>
+      {/* Mobile Sidebar */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <>
+            <div className="fixed inset-0 bg-black/40 z-[150]" onClick={() => setMobileOpen(false)} />
 
-        {/* Navigation */}
-        <div className="flex flex-col h-full">
-          <nav className="flex-1 p-4 space-y-2">
-            {navigationItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = activeItem === item.id;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => setActiveItem(item.id)}
-                  className={`w-full flex items-center px-3 py-3 rounded-xl transition-all duration-200 group relative
-                    ${isCollapsed ? 'justify-center' : 'space-x-3'}
-                    ${isActive ? 'bg-[#188f8b] text-white shadow-lg' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800'}
-                  `}
-                >
-                  <Icon className="w-5 h-5 flex-shrink-0" />
-                  {!isCollapsed && <span className="font-medium text-sm">{item.label}</span>}
-                  {isCollapsed && (
-                    <div className="absolute left-full ml-2 bg-gray-800 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
-                      {item.label}
-                    </div>
-                  )}
+            <motion.aside
+              initial={{ x: -280 }}
+              animate={{ x: 0 }}
+              exit={{ x: -280 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-[200] p-4 flex flex-col"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <Image src="/seraxmi-Dark.svg" width={75} height={75} alt="Logo" className="object-contain" />
+                <button onClick={() => setMobileOpen(false)} aria-label="Close menu">
+                  <X size={22} />
                 </button>
-              );
-            })}
-          </nav>
-
-          {/* Bottom Section */}
-          <div className="p-4 border-t border-gray-200 space-y-2">
-            {bottomItems.map((item) => {
-              const Icon = item.icon;
-              const handleClick = item.id === 'logout'
-                ? () => setShowLogoutModal(true)
-                : () => setActiveItem(item.id);
-
-              return (
-                <button
-                  key={item.id}
-                  onClick={handleClick}
-                  className={`w-full flex items-center px-3 py-2 rounded-lg transition-all duration-200 group relative
-                    ${isCollapsed ? 'justify-center' : 'space-x-3'}
-                    ${activeItem === item.id
-                      ? 'bg-[#188f8b] text-white'
-                      : item.id === 'logout'
-                        ? 'text-gray-500 hover:bg-red-50 hover:text-red-600'
-                        : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700'}
-                  `}
-                >
-                  <Icon className="w-4 h-4 flex-shrink-0" />
-                  {!isCollapsed && <span className="font-medium text-sm">{item.label}</span>}
-                  {isCollapsed && (
-                    <div className="absolute left-full ml-2 bg-gray-800 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
-                      {item.label}
-                    </div>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* User Profile */}
-          {!isCollapsed && (
-            <div className="p-4 border-t border-gray-200">
-              <div className="flex items-center space-x-3 p-3 rounded-xl bg-gray-50 border border-gray-200">
-                <div className="w-8 h-8 bg-[#188f8b] rounded-full flex items-center justify-center">
-                  <User className="w-4 h-4 text-white" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-800 truncate">Admin User</p>
-                  <p className="text-xs text-gray-500 truncate">admin@example.com</p>
-                </div>
               </div>
-            </div>
-          )}
-        </div>
-      </div>
 
-      {/* Logout Modal */}
-      {showLogoutModal && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-          <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-sm space-y-4">
-            <h2 className="text-lg font-semibold text-gray-800">Confirm Logout</h2>
-            <p className="text-sm text-gray-600">Are you sure you want to log out?</p>
-            <div className="flex justify-end space-x-3 mt-4">
-              <button
-                className="px-4 py-2 text-sm text-gray-600 rounded-md hover:bg-gray-100"
-                onClick={() => setShowLogoutModal(false)}
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleLogout}
-                disabled={isLoggingOut}
-                className={`px-4 py-2 text-sm text-white rounded-md bg-[#188f8b] hover:bg-[#0f6c68] transition-all duration-200 ${
-                  isLoggingOut ? 'opacity-60 cursor-not-allowed' : ''
-                }`}
-              >
-                {isLoggingOut ? (
-                  <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    <span>Logging out...</span>
-                  </div>
-                ) : (
-                  'Logout'
-                )}
-              </button>
-            </div>
+              <nav className="space-y-2 overflow-y-auto">
+                {NAV.map((item) => (
+                  <NavItem key={item.id} item={item} />
+                ))}
+              </nav>
+
+              <div className="mt-auto pt-4 border-t border-gray-100">
+                <button
+                  onClick={() => setLogoutOpen(true)}
+                  className="flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl w-full"
+                >
+                  <LogOut size={20} /> Logout
+                </button>
+              </div>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Desktop Sidebar */}
+      <aside className="hidden lg:flex flex-col justify-between fixed left-0 top-0 w-72 h-full bg-white shadow-md p-4">
+        <div>
+          <div className="flex justify-center py-4 border-b border-gray-100">
+            <Image src="/seraxmi-Dark.svg" width={80} height={80} alt="Logo" />
           </div>
+
+          <nav className="mt-4 space-y-2 overflow-y-auto">
+            {NAV.map((item) => (
+              <NavItem key={item.id} item={item} />
+            ))}
+          </nav>
         </div>
-      )}
-    </div>
+
+        <div className="mt-auto pt-4 border-t border-gray-100">
+          <button
+            onClick={() => setLogoutOpen(true)}
+            className="flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl w-full"
+          >
+            <LogOut size={20} /> Logout
+          </button>
+        </div>
+      </aside>
+    </>
   );
-}
+};
+
+export default AdminSidebar;

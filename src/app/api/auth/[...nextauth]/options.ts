@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
+import { encrypt } from "@/lib/crypto";
 interface AuthUser {
   id: string;
   role: string;
@@ -35,17 +36,32 @@ export const authOptions: NextAuthOptions = {
               ],
             },
             "email username password role"
-          ).lean<{ _id: string; email: string; username: string; password: string; role: string }>();
+          ).lean<{
+            _id: string;
+            email: string;
+            username: string;
+            password: string;
+            role: string;
+          }>();
           console.log(user);
 
           if (!user) {
             throw new Error("No user found with this email");
           }
           console.log("compairing:", credentials.password, user.password);
-          const isPasswordCorrect = await bcrypt.compare(
-            credentials.password.trim(),
-            user.password
-          );
+          let isPasswordCorrect;
+          if (user.role === "client") {
+            // use your custom encrypt/compare
+            const hashedInput = encrypt(credentials.password.trim()); // or whatever your compare logic is
+            isPasswordCorrect = hashedInput === user.password;
+          } else {
+            // everyone else uses bcrypt
+            isPasswordCorrect = await bcrypt.compare(
+              credentials.password.trim(),
+              user.password
+            );
+          }
+
           if (isPasswordCorrect) {
             return {
               id: user._id.toString(),

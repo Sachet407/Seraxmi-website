@@ -2,8 +2,11 @@
 import React, { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 const ContactUs = () => {
+  const [showSuccess, setShowSuccess] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,11 +23,35 @@ const ContactUs = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Form submitted with data:", formData);
-    // Here you would typically send the data to your backend
-    alert("Thank you for your message! We'll get back to you soon.");
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  console.log("Form submitted with data:", formData);
+
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fullname: formData.name,
+        email: formData.email,
+        phoneNumber: formData.phone,
+        subject: formData.subject,
+        message: formData.message,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || "Something went wrong!");
+      return;
+    }
+
+setShowSuccess(true);
+
+
     setFormData({
       name: "",
       email: "",
@@ -32,7 +59,12 @@ const ContactUs = () => {
       subject: "",
       message: "",
     });
-  };
+  } catch (err) {
+    console.error("Error submitting contact form:", err);
+    alert("Failed to send message. Please try again.");
+  }
+};
+
 
   const contactMethods = [
     {
@@ -255,6 +287,47 @@ const ContactUs = () => {
           </motion.div>
         </div>
       </div>
+      {/* Success Modal */}
+<AnimatePresence>
+  {showSuccess && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[9999]"
+    >
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.8, opacity: 0, y: 20 }}
+        transition={{ duration: 0.25 }}
+        className="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full text-center border border-slate-200"
+      >
+        <div className="w-16 h-16 mx-auto mb-4 bg-[#188f8b]/10 rounded-full flex items-center justify-center">
+          <svg className="w-10 h-10 text-[#188f8b]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+
+        <h2 className="text-2xl font-bold text-slate-900 mb-2">
+          Message Sent!
+        </h2>
+
+        <p className="text-slate-600 mb-6">
+          Thank you for reaching out. We’ll get back to you as soon as possible.
+        </p>
+
+        <button
+          onClick={() => setShowSuccess(false)}
+          className="w-full py-3 bg-[#188f8b] text-white rounded-xl font-semibold shadow-lg hover:bg-[#157f7b] transition"
+        >
+          Close
+        </button>
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
     </section>
   );
 };

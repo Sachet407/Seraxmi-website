@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --background: #ffffff;
@@ -21,11 +22,44 @@ body {
 }
 
 /* Heading styles using Outfit */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-outfit), Arial, Helvetica, sans-serif;
+
+.article-content {
+  li p {
+    margin: 0 !important;
+  }
+
+  figcaption {
+    text-align: center;
+  }
+
+  blockquote {
+    p:first-of-type::before,
+    p:first-of-type::after {
+      content: unset;
+    }
+  }
+
+  pre {
+    position: relative;
+    background-color: hsl(224, 19%, 97%);
+    padding-block: 1rem;
+    overflow-x: auto;
+
+    code {
+      padding-inline: 1.25rem;
+      display: block;
+      width: fit-content;
+      min-width: 100%;
+      font-size: 90%;
+      line-height: 1.75;
+    }
+  }
+}
+
+code .line span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
 }

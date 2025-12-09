@@ -1,4 +1,5 @@
 import AdminSidebar from "@/components/admin/SideNavbar";
+import "@/app/globals.css";
 
 export default function VisitorLayout({
   children,
