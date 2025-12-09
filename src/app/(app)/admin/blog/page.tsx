@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { Eye, Edit, Trash2, Search, Calendar, User, Clock, BookOpen } from 'lucide-react';
+import { Eye, Edit, Trash2, Search, Calendar, Clock, BookOpen } from 'lucide-react';
 import { useRouter } from "next/navigation";
-
+import Image from 'next/image';
 
 
 interface AuthorDetails {
@@ -136,7 +136,9 @@ export default function BlogManagement() {
             >
               {/* Blog Image */}
               <div className="relative h-48 overflow-hidden">
-                <img
+                <Image
+                  width={400}
+                  height={200}
                   src={blog.blogPhoto}
                   alt={blog.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
@@ -162,7 +164,9 @@ export default function BlogManagement() {
 
                 {/* Author Info */}
                 <div className="flex items-center gap-3 mb-4 pb-4 border-b border-slate-100">
-                  <img
+                  <Image
+                    width={40}
+                    height={40}
                     src={blog.authorDetails.photo}
                     alt={blog.authorDetails.name}
                     className="w-10 h-10 rounded-full border-2 border-blue-500"
@@ -235,7 +239,7 @@ export default function BlogManagement() {
             </div>
             <h3 className="text-2xl font-bold text-slate-900 text-center mb-2">Delete Blog?</h3>
             <p className="text-slate-600 text-center mb-6">
-              Are you sure you want to delete "<strong>{deleteConfirm.title}</strong>"? This action cannot be undone.
+              Are you sure you want to delete &quot;<strong>{deleteConfirm.title}</strong>&quot;? This action cannot be undone.
             </p>
             <div className="flex gap-3">
               <button

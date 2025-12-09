@@ -17,25 +17,25 @@ async function getTestimonials() {
   return json.success ? json.data : [];
 }
 
-// ✅ Fetch blogs (SERVER)
-async function getBlogs() {
-  const res = await fetch("http://localhost:3000/api/blog", {
-    next: { revalidate: 1800 }, // Cache 30 mins
-  });
+// // ✅ Fetch blogs (SERVER)
+// async function getBlogs() {
+//   const res = await fetch("http://localhost:3000/api/blog", {
+//     next: { revalidate: 1800 }, // Cache 30 mins
+//   });
 
-  console.log("Blog fetch response status:", res);
+//   console.log("Blog fetch response status:", res);
 
-  if (!res.ok) return [];
+//   if (!res.ok) return [];
 
-  const json = await res.json();
-  return json.success ? json.data : [];
-}
+//   const json = await res.json();
+//   return json.success ? json.data : [];
+// }
 
 const Page = async () => {
-  const [testimonials, blogs] = await Promise.all([
+  const [testimonials] = await Promise.all([
     getTestimonials(),
-    getBlogs(),
-  ]);
+
+]);
 
   return (
     <>

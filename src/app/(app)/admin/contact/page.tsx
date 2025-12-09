@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Mail, Phone, User, Calendar, MessageSquare, Loader } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion} from "framer-motion";
 
 interface Contact {
   _id: string;
@@ -29,7 +29,7 @@ export default function AdminContactsPage() {
         if (!data.success) throw new Error("Failed to fetch messages");
 
         setContacts(data.data);
-      } catch (err) {
+      } catch (err: unknown) {
         setError("Failed to load contact messages");
       } finally {
         setLoading(false);

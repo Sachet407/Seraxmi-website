@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Mail, Building2, DollarSign, Calendar, FileText, Loader2, AlertCircle } from 'lucide-react';
+import { Mail, Building2, Calendar, FileText, Loader2, AlertCircle } from 'lucide-react';
 
 interface Enquiry {
   _id: string;

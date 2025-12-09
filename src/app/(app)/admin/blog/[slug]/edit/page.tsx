@@ -451,7 +451,9 @@ export default function EditPostPage({ params }: { params: Promise<{ slug: strin
 
                                 {blogPhoto && (
                                     <div className="relative rounded-xl overflow-hidden border-2 border-[#188f8b]/30 group">
-                                        <img
+                                        <Image
+                                            width={400}
+                                            height={200}
                                             src={blogPhoto}
                                             alt="Blog preview"
                                             className="w-full h-48 object-cover"

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatDistanceToNowStrict, parseISO } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Tag, Clock, User, BookOpen } from "lucide-react";
+import { Search, Tag, Clock,  BookOpen } from "lucide-react";
 
 type Author = {
   id: string;
