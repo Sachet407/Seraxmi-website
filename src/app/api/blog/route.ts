@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import BlogPostModel from "@/model/BlogPost";
 
+interface MongooseError extends Error {
+  code?: number;
+}
+
 export async function POST(request: Request) {
   try {
     await dbConnect();
@@ -34,7 +38,8 @@ export async function POST(request: Request) {
   } catch (error: unknown) {
     console.error("Error creating blog post:", error);
     // Handle duplicate key error (E11000)
-    if (error instanceof Error && (error as any).code === 11000) {
+    const mongooseError = error as MongooseError;
+    if (mongooseError instanceof Error && mongooseError.code === 11000) {
       return NextResponse.json(
         { success: false, error: "Slug already exists" },
         { status: 409 }

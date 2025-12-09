@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import ContactModel from "@/model/Contact";
 
+
+interface MongooseError extends Error {
+  code?: number;
+}
 export async function POST(request: Request) {
   try {
     await dbConnect();
@@ -25,11 +29,11 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ success: true, data: contact }, { status: 201 });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error creating contact:", error);
-
+const mongooseError = error as MongooseError;
     // Duplicate key (if you add unique email later)
-    if (error.code === 11000) {
+  if(mongooseError instanceof Error && mongooseError.code === 11000) {
       return NextResponse.json(
         { success: false, error: "Entry already exists" },
         { status: 409 }

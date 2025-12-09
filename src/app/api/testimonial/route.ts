@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import TestimonialModel from "@/model/Testimonial";
 
+interface MongooseError extends Error {
+  code?: number;
+}
+
 export async function POST(request: Request) {
   try {
     await dbConnect();
@@ -28,9 +32,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true, data: testimonial }, { status: 201 });
   } catch (error: unknown) {
     console.error("Error creating testimonial:", error);
-
+const mongooseError = error as MongooseError;
     // Duplicate key (only triggers if you add unique fields later)
-    if (error instanceof Error && (error as any).code === 11000) {
+    if (mongooseError instanceof Error && mongooseError.code === 11000) {
       return NextResponse.json(
         { success: false, error: "Duplicate entry" },
         { status: 409 }

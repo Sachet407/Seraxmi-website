@@ -7,6 +7,9 @@ import { NextResponse } from "next/server";
 // ===========================
 // POST: Create Client
 // ===========================
+interface MongooseError extends Error {
+  code?: number;
+}
 
 export async function POST(request: Request) {
   await dbConnect();
@@ -60,8 +63,9 @@ export async function POST(request: Request) {
     );
   } catch (error: unknown) {
     console.error("Error registering client:", error);
+    const mongooseError = error as MongooseError;
 
-    if (error instanceof Error && (error as any).code === 11000) {
+    if (mongooseError instanceof Error && mongooseError.code === 11000) {
       return NextResponse.json(
         { success: false, message: "Username already exists." },
         { status: 400 }

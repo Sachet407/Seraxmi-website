@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import EnquiryModel from "@/model/Enquiry";
 
+interface MongooseError extends Error {
+  code?: number;
+}
+
 export async function POST(request: Request) {
   try {
     await dbConnect();
@@ -32,9 +36,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true, data: enquiry }, { status: 201 });
   } catch (error:unknown) {
     console.error("Error creating enquiry:", error);
-
+const mongooseError = error as MongooseError;
     // Handle duplicate key error (E11000)
-    if(error instanceof Error && (error as any).code === 11000) {
+    if(mongooseError instanceof Error && mongooseError.code === 11000) {
       return NextResponse.json(
         { success: false, error: "Email already exists" },
         { status: 409 }

@@ -10,7 +10,8 @@ type Client = {
     username: string;
     password: string;
     role?: string;
-    [k: string]: any;
+    decryptedPassword: string;
+    [k: string]: unknown;
 };
 
 export default function ClientManagementPage() {
