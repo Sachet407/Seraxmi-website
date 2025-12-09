@@ -21,11 +21,11 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ success: true, data: subscriber }, { status: 201 });
-  } catch (error: any) {
+  } catch (error:unknown) {
     console.error("Error creating subscriber:", error);
 
     // Handle duplicate key email
-    if (error.code === 11000) {
+    if (error instanceof Error && (error as any).code === 11000) {
       return NextResponse.json(
         { success: false, error: "Email already subscribed" },
         { status: 409 }

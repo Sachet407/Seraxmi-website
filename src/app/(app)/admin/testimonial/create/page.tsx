@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import { Star, UploadCloud, XCircle } from 'lucide-react';
-
+import Image from 'next/image';
 // --- Type Definitions and Reusable Input Component ---
 
 interface FormState {
@@ -218,7 +218,9 @@ export default function TestimonialForm() {
 
           {form.profileImage ? (
             <div className="flex items-center space-x-4 p-4 border border-green-400 bg-green-50 rounded-lg">
-                <img 
+                <Image
+                width={64}
+                height={64}
                     src={form.profileImage} 
                     alt="Profile Preview" 
                     className="w-16 h-16 rounded-full object-cover ring-2 ring-green-600" 

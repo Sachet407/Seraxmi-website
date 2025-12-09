@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react';
 import { Star, UploadCloud, XCircle, LogOut, CheckCircle, AlertCircle, Loader } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { signOut } from 'next-auth/react';
+import Image from 'next/image';
 
 /* ----------------  TYPES  ---------------- */
 interface FormState {
@@ -186,7 +187,7 @@ export default function ClientFeedbackPortal() {
 
       {/* ----------  TOP BAR  ---------- */}
  <nav className="fixed top-0 left-0 right-0 z-20 flex items-center justify-between p-4 md:px-6">
-  <img src="/seraxmi-Light.svg" alt="Seraxmi" className="h-24 w-auto" />
+  <Image src="/seraxmi-Light.svg" alt="Seraxmi" className="h-24 w-auto" />
 
   {/* Premium exit button – bigger, softer, glowing */}
   <motion.button
@@ -233,7 +234,7 @@ export default function ClientFeedbackPortal() {
               <div className="relative group">
                 {form.profileImage ? (
                   <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="relative w-28 h-28">
-                    <img src={form.profileImage} alt="Avatar" className="w-full h-full rounded-full object-cover shadow-lg border-4 border-white" />
+                    <Image src={form.profileImage} alt="Avatar" className="w-full h-full rounded-full object-cover shadow-lg border-4 border-white" />
                     <button type="button" onClick={handleImageRemove} className="absolute -top-2 -right-2 bg-white text-red-500 rounded-full p-1 shadow-md hover:bg-red-50">
                       <XCircle size={20} />
                     </button>

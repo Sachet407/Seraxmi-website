@@ -29,7 +29,7 @@ export default function NewsletterSubscribers() {
       } else {
         setError("Failed to load subscribers");
       }
-    } catch (err:unknown) {
+    } catch (_err:unknown) {
       setError("Error fetching subscribers");
     } finally {
       setLoading(false);

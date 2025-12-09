@@ -58,10 +58,10 @@ export async function POST(request: Request) {
       },
       { status: 201 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error registering client:", error);
 
-    if (error.code === 11000) {
+    if (error instanceof Error && (error as any).code === 11000) {
       return NextResponse.json(
         { success: false, message: "Username already exists." },
         { status: 400 }

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useMemo } from "react";
-import { Zap, ArrowRight, Sparkles, X, Calendar, Mail, User, Building, DollarSign, FileText, CheckCircle } from "lucide-react";
+import { Zap, ArrowRight, Sparkles} from "lucide-react";
 import Enquiry from "../Enquiry";
 
 

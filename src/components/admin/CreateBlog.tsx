@@ -4,6 +4,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Upload, X, Save,  Clock } from 'lucide-react';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
+import Image from 'next/image';
 
 interface BlogFormData {
   title: string;
@@ -304,7 +305,7 @@ const CreateBlogForm: React.FC = () => {
           </label>
           {previewImage ? (
             <div className="relative">
-              <img
+              <Image
                 src={previewImage}
                 alt="Preview"
                 className="w-full h-48 object-cover rounded-md"

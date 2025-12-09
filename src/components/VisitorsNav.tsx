@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { Menu, X, PhoneCall, ChevronDown, Calendar, Mail, User, Building, DollarSign, FileText, CheckCircle, Loader2 } from 'lucide-react'
+import { Menu, X, PhoneCall, ChevronDown,Loader2 } from 'lucide-react'
 import Enquiry from './Enquiry'
 
 // Add custom CSS for shimmer animation

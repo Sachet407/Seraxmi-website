@@ -55,9 +55,9 @@ export default function ClientManagementPage() {
             const payload = await res.json();
             if (!res.ok) throw new Error(payload?.message || "Failed to fetch");
             setClients(Array.isArray(payload.data) ? payload.data : []);
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error(err);
-            setFetchError(err?.message || "Failed to fetch clients");
+            setFetchError(err instanceof Error ? err.message : "Failed to fetch clients");
         } finally {
             setLoading(false);
         }
@@ -93,10 +93,10 @@ export default function ClientManagementPage() {
             setNewPassword("");
             setIsCreateOpen(false);
             setToast({ kind: "success", message: json.message || "Client created" });
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error(err);
-            setCreateError(err?.message || "Failed to create client");
-            setToast({ kind: "error", message: err?.message || "Failed to create client" });
+            setCreateError(err instanceof Error ? err.message : "Failed to fetch clients");
+            setToast({ kind: "error", message: err instanceof Error ? err.message || "Failed to create client" });
         } finally {
             setCreating(false);
         }
@@ -116,9 +116,9 @@ export default function ClientManagementPage() {
 
             setClients((p) => p.filter((c) => c._id !== deletingId));
             setToast({ kind: "success", message: json.message || "Deleted" });
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error(err);
-            setToast({ kind: "error", message: err?.message || "Delete failed" });
+            setToast({ kind: "error", message: err instanceof Error ? err.message || "Delete failed" });
         } finally {
             setDeleteInProgress(false);
             setDeletingId(null);
@@ -136,14 +136,14 @@ export default function ClientManagementPage() {
         <div className="p-6">
             <div className="mx-auto max-w-7xl">
                 {/* Header */}
-                <motion.header 
+                <motion.header
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="mb-8"
                 >
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-      
+
                             <div>
                                 <h1 className="text-3xl font-light">
                                     Client Management
@@ -175,7 +175,7 @@ export default function ClientManagementPage() {
                 </motion.header>
 
                 {/* Main Content */}
-                <motion.section 
+                <motion.section
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
@@ -194,7 +194,7 @@ export default function ClientManagementPage() {
                     </div>
 
                     {fetchError ? (
-                        <motion.div 
+                        <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             className="rounded-xl border-2 border-red-200 bg-red-50 p-4 text-red-700"
@@ -227,7 +227,7 @@ export default function ClientManagementPage() {
                                         </tr>
                                     ) : (
                                         clients.map((c, idx) => (
-                                            <motion.tr 
+                                            <motion.tr
                                                 key={c._id}
                                                 initial={{ opacity: 0, x: -20 }}
                                                 animate={{ opacity: 1, x: 0 }}
@@ -307,10 +307,10 @@ export default function ClientManagementPage() {
                                         <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Create Client</h3>
                                         <p className="text-sm text-gray-500 mt-1">Add a new client account</p>
                                     </div>
-                                    <motion.button 
+                                    <motion.button
                                         whileHover={{ scale: 1.1, rotate: 90 }}
                                         whileTap={{ scale: 0.9 }}
-                                        onClick={() => setIsCreateOpen(false)} 
+                                        onClick={() => setIsCreateOpen(false)}
                                         className="rounded-full p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
                                     >
                                         <X size={20} />
@@ -352,7 +352,7 @@ export default function ClientManagementPage() {
                                     </div>
 
                                     {createError && (
-                                        <motion.div 
+                                        <motion.div
                                             initial={{ opacity: 0, y: -10 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-600"
@@ -460,10 +460,10 @@ export default function ClientManagementPage() {
                                             <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-indigo-900">Username</div>
                                             <div className="flex items-center justify-between gap-3 rounded-lg bg-white p-3">
                                                 <code className="text-sm font-medium text-gray-900">{createdCredentials.username}</code>
-                                                <motion.button 
+                                                <motion.button
                                                     whileHover={{ scale: 1.1 }}
                                                     whileTap={{ scale: 0.9 }}
-                                                    onClick={() => copyToClipboard(createdCredentials.username, "Username copied")} 
+                                                    onClick={() => copyToClipboard(createdCredentials.username, "Username copied")}
                                                     className="rounded-lg p-1.5 text-indigo-600 hover:bg-indigo-100 transition-all"
                                                 >
                                                     <Copy size={16} />
@@ -475,10 +475,10 @@ export default function ClientManagementPage() {
                                             <div className="mb-1 text-xs font-semibold uppercase tracking-wider text-indigo-900">Password</div>
                                             <div className="flex items-center justify-between gap-3 rounded-lg bg-white p-3">
                                                 <code className="text-sm font-mono text-gray-700">{createdCredentials.password}</code>
-                                                <motion.button 
+                                                <motion.button
                                                     whileHover={{ scale: 1.1 }}
                                                     whileTap={{ scale: 0.9 }}
-                                                    onClick={() => copyToClipboard(createdCredentials.password, "Password copied")} 
+                                                    onClick={() => copyToClipboard(createdCredentials.password, "Password copied")}
                                                     className="rounded-lg p-1.5 text-indigo-600 hover:bg-indigo-100 transition-all"
                                                 >
                                                     <Copy size={16} />
@@ -488,10 +488,10 @@ export default function ClientManagementPage() {
                                     </div>
                                 </div>
 
-                                <motion.button 
+                                <motion.button
                                     whileHover={{ scale: 1.1, rotate: 90 }}
                                     whileTap={{ scale: 0.9 }}
-                                    onClick={() => setCreatedCredentials(null)} 
+                                    onClick={() => setCreatedCredentials(null)}
                                     className="rounded-full p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
                                 >
                                     <X size={20} />
@@ -509,11 +509,10 @@ export default function ClientManagementPage() {
                                 initial={{ opacity: 0, y: 20, scale: 0.9 }}
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 exit={{ opacity: 0, y: 20, scale: 0.9 }}
-                                className={`flex items-center gap-3 rounded-xl px-6 py-4 shadow-2xl ${
-                                    toast.kind === "success" 
-                                        ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white" 
-                                        : "bg-gradient-to-r from-red-500 to-pink-600 text-white"
-                                }`}
+                                className={`flex items-center gap-3 rounded-xl px-6 py-4 shadow-2xl ${toast.kind === "success"
+                                    ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white"
+                                    : "bg-gradient-to-r from-red-500 to-pink-600 text-white"
+                                    }`}
                             >
                                 {toast.kind === "success" ? (
                                     <Check size={20} className="flex-shrink-0" />

@@ -26,11 +26,11 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ success: true, data: testimonial }, { status: 201 });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error creating testimonial:", error);
 
     // Duplicate key (only triggers if you add unique fields later)
-    if (error.code === 11000) {
+    if (error instanceof Error && (error as any).code === 11000) {
       return NextResponse.json(
         { success: false, error: "Duplicate entry" },
         { status: 409 }

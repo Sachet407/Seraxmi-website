@@ -29,7 +29,7 @@ export default function AdminContactsPage() {
         if (!data.success) throw new Error("Failed to fetch messages");
 
         setContacts(data.data);
-      } catch (err: unknown) {
+      } catch (_err: unknown) {
         setError("Failed to load contact messages");
       } finally {
         setLoading(false);

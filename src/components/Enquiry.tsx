@@ -16,8 +16,9 @@ interface Props {
 }
 
 const Enquiry: React.FC<Props> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-
+  // ------------------------
+  // ✅ Hooks must always run
+  // ------------------------
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -43,7 +44,6 @@ const Enquiry: React.FC<Props> = ({ isOpen, onClose }) => {
     async (e: React.FormEvent) => {
       e.preventDefault();
 
-      // Map UI fields to API fields
       const payload = {
         fullname: formData.name,
         companyName: formData.companyName,
@@ -62,7 +62,6 @@ const Enquiry: React.FC<Props> = ({ isOpen, onClose }) => {
         });
 
         const data = await res.json();
-        console.log("Response:", data);
 
         if (!res.ok) {
           alert(data?.message || "Failed to submit form");
@@ -89,6 +88,11 @@ const Enquiry: React.FC<Props> = ({ isOpen, onClose }) => {
     },
     [formData, onClose]
   );
+
+  // ------------------------
+  // ✅ Check AFTER hooks
+  // ------------------------
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -217,7 +221,6 @@ const Enquiry: React.FC<Props> = ({ isOpen, onClose }) => {
                 />
               </div>
 
-              {/* Submit Button */}
               <button
                 type="submit"
                 className="w-full bg-gradient-to-r from-[#188f8b] to-[#16807c] hover:from-[#16807c] hover:to-[#147571] text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl flex items-center justify-center gap-3"
@@ -228,7 +231,6 @@ const Enquiry: React.FC<Props> = ({ isOpen, onClose }) => {
             </form>
           </>
         ) : (
-          /* Success State */
           <div className="p-12 text-center">
             <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="w-10 h-10 text-white" />
