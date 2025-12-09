@@ -96,7 +96,7 @@ export default function ClientManagementPage() {
         } catch (err: unknown) {
             console.error(err);
             setCreateError(err instanceof Error ? err.message : "Failed to fetch clients");
-            setToast({ kind: "error", message: err instanceof Error ? err.message || "Failed to create client" });
+            setToast({ kind: "error", message: err instanceof Error ? err.message : "Failed to create client" });
         } finally {
             setCreating(false);
         }
@@ -118,7 +118,7 @@ export default function ClientManagementPage() {
             setToast({ kind: "success", message: json.message || "Deleted" });
         } catch (err: unknown) {
             console.error(err);
-            setToast({ kind: "error", message: err instanceof Error ? err.message || "Delete failed" });
+            setToast({ kind: "error", message: err instanceof Error ? err.message: "Delete failed" });
         } finally {
             setDeleteInProgress(false);
             setDeletingId(null);
